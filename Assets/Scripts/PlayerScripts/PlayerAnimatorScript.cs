@@ -8,19 +8,30 @@ public class PlayerAnimatorScript : MonoBehaviour
 
     #region Parameters Variables
 
-    private static string velocity = "Velocity";
-    private int vel = 0;
+    private static string velocityX = "VelocityX";
+    private int velX = 0;
+    private static string velocityY = "VelocityY";
+    private int velY = 0;
+    private static string isJumping = "IsJumping";
+    private int jump = 0;
 
     #endregion
     private void Awake()
     {
         playerAnimator = GetComponent<Animator>();
-        vel = Animator.StringToHash(velocity);
+        velX = Animator.StringToHash(velocityX);
+        velY = Animator.StringToHash(velocityY);
+        jump = Animator.StringToHash(isJumping);
     }
 
-    public void SetVelocity(float velocity)
+    public void SetVelocity(float velocityX, float velocityY)
     {
-        playerAnimator.SetFloat(vel, velocity);
+        playerAnimator.SetFloat(velX, velocityX);
+        playerAnimator.SetFloat(velY, velocityY);
     }
-    
+
+    public void SetJump(bool flag = true) 
+    {   if(playerAnimator.GetBool(jump) != flag)
+            playerAnimator.SetBool(jump, flag); 
+    }
 }

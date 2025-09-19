@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 93766820}
   - component: {fileID: 93766822}
   - component: {fileID: 93766823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.068541296, y: -0.026481837}
+  m_Offset: {x: -0.008795664, y: -0.022233866}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.4, y: 0.5}
@@ -188,7 +188,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24136691, y: 0.38703632}
+  m_Size: {x: 0.19980478, y: 0.3785404}
   m_EdgeRadius: 0
 --- !u!50 &93766817
 Rigidbody2D:
@@ -206,7 +206,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a7f583e3a2f704b4cbd92e87765a8204, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -281,7 +281,8 @@ Transform:
   m_LocalPosition: {x: -5.9276, y: -2.41, z: -0.010571893}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 681313632}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &93766820
@@ -298,6 +299,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainStats:
     PlayerSpeed: 8
+    PlayerJumpSpeed: 9
+  GroundCheckPos: {fileID: 681313632}
+  groundCheckSize: {x: 0.58, y: 0.12}
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  VelocityY: 0
 --- !u!114 &93766821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +395,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ce03b3e2-dd50-4b0f-9096-ed9151037fb9
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 93766820}
+        m_TargetAssemblyTypeName: PlayerMainScript, Assembly-CSharp
+        m_MethodName: JumpFunction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8074d0e5-01e4-4ab0-a259-9acb7a88d829
+    m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -689,6 +713,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &681313631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 681313632}
+  m_Layer: 6
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &681313632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681313631}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0141, y: -0.2133, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 93766819}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1063436960
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,7 +758,7 @@ GameObject:
   - component: {fileID: 1063436967}
   - component: {fileID: 1063436966}
   - component: {fileID: 1063436965}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
