@@ -9,15 +9,17 @@ public class PlayerMainScript : MonoBehaviour
     public PlayerStats MainStats;
     private Rigidbody2D playerRigidbody;
     private SpriteRenderer playerSpriteRenderer;
+    private PlayerAnimatorScript playerAnimatorScript;
 
     private float horizontalMovement = 0f;
-    private float movementSmoothTime = 0.5f;
+    private float movementSmoothTime = 0.3f;
     private Vector2 velocityRef = Vector2.zero;
 
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        playerAnimatorScript = GetComponent<PlayerAnimatorScript>();
     }
     // Start is called before the first frame update
     void Start()
@@ -49,6 +51,8 @@ public class PlayerMainScript : MonoBehaviour
                 transform.rotation = Quaternion.Euler(transform.position.x, 0, transform.position.z);
             }
                 playerRigidbody.velocity = Vector2.SmoothDamp(playerRigidbody.velocity, new Vector2(horizontalMovement * MainStats.PlayerSpeed, playerRigidbody.velocity.y), ref velocityRef, movementSmoothTime);
+            
+            playerAnimatorScript.SetVelocity(Mathf.Clamp01(Mathf.Abs(playerRigidbody.velocity.x)));
         }
     }
 }
