@@ -283,6 +283,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 681313632}
+  - {fileID: 1087539870}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &93766820
@@ -300,12 +301,16 @@ MonoBehaviour:
   MainStats:
     PlayerSpeed: 8
     PlayerJumpSpeed: 9
+    PlayerWallSlideSpeed: 3
   GroundCheckPos: {fileID: 681313632}
-  groundCheckSize: {x: 0.58, y: 0.12}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  VelocityY: 0
+  WallCheckPos: {fileID: 1087539870}
+  wallCheckSize: {x: 0.2, y: 2}
+  WallLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &93766821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5582,8 +5587,8 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0.5059202, y: 6.5651207}
       - {x: -15.340246, y: 6.5187416}
-      - {x: -15.286406, y: -26.8206}
-      - {x: 34.753498, y: -26.691141}
+      - {x: -15.286406, y: -28.5473}
+      - {x: 34.753498, y: -28.700388}
       - {x: 34.84541, y: 6.508766}
   m_UseDelaunayMesh: 0
 --- !u!4 &1076853268
@@ -5601,6 +5606,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1087539869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1087539870}
+  m_Layer: 6
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1087539870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087539869}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0907, y: -0.019, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 93766819}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1225661617
 GameObject:
   m_ObjectHideFlags: 0
@@ -5615,7 +5651,7 @@ GameObject:
   - component: {fileID: 1225661621}
   - component: {fileID: 1225661620}
   - component: {fileID: 1225661619}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}

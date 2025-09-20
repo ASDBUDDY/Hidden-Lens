@@ -11,10 +11,16 @@ public class PlayerMainScript : MonoBehaviour
     public PlayerStats MainStats;
 
     [Header("Layer Checks")]
+    //Ground Layer
     public Transform GroundCheckPos;
-    [SerializeField]
-    private Vector2 groundCheckSize = new Vector2(0.5f, 0.005f);
+    private Vector2 groundCheckSize = new Vector2(0.58f, 0.12f);
     public LayerMask GroundLayerMask;
+    //Wall Layers
+    public Transform WallCheckPos;
+    [SerializeField]
+    private Vector2 wallCheckSize = new Vector2(0.58f, 0.12f);
+    public LayerMask WallLayerMask;
+    private bool isWallSliding = false;
 
 
     private Rigidbody2D playerRigidbody;
@@ -33,7 +39,7 @@ public class PlayerMainScript : MonoBehaviour
         private float jumpBufferInterval = 0.1f; 
         private bool isHalfJump = false;
     #endregion
-    public float VelocityY;
+   
     #endregion
 
     #region MonoBehaviour Methods
@@ -58,9 +64,17 @@ public class PlayerMainScript : MonoBehaviour
 
     #region OnReturn Methods
 
-    public bool isGrounded()
+    public bool IsGrounded()
     {
         if(Physics2D.OverlapBox(GroundCheckPos.position, groundCheckSize, 0, GroundLayerMask))
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool IsOnWall()
+    {
+        if (Physics2D.OverlapBox(WallCheckPos.position, wallCheckSize, 0, WallLayerMask))
         {
             return true;
         }
@@ -92,18 +106,34 @@ public class PlayerMainScript : MonoBehaviour
             playerAnimatorScript.SetVelocity(Mathf.Clamp01(Mathf.Abs(playerRigidbody.velocity.x)), playerRigidbody.velocity.y);
 
             GroundCheck();
-            if(isGrounded() && Time.time - timeLastPressedJump <= jumpBufferInterval)
+            ProcessWallSlide();
+            if(IsGrounded() && Time.time - timeLastPressedJump <= jumpBufferInterval)
             {
                 
                 PerformJump(isHalfJump);
             }
 
-            VelocityY = playerRigidbody.velocity.y;
+           
         }
+    }
+
+    private void ProcessWallSlide()
+    {
+        if (!IsGrounded() && IsOnWall() && horizontalMovement != 0)
+        {
+            isWallSliding = true;
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, Mathf.Max(playerRigidbody.velocity.y, -MainStats.PlayerWallSlideSpeed));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+
+        playerAnimatorScript.SetWallSide(isWallSliding);
     }
     private void GroundCheck()
     {
-        if (isGrounded())
+        if (IsGrounded())
         {
             lastTimeOnGround = Time.time;
             if(playerRigidbody.velocity.y <= 0f)
@@ -116,7 +146,7 @@ public class PlayerMainScript : MonoBehaviour
         timeLastPressedJump = Time.time;
         isHalfJump = context.performed ? false : context.canceled ? true : false;
 
-        if (isGrounded() || Time.time - lastTimeOnGround <= coyoteTime)
+        if (IsGrounded() || Time.time - lastTimeOnGround <= coyoteTime)
         {
 
             PerformJump(isHalfJump);
@@ -134,11 +164,12 @@ public class PlayerMainScript : MonoBehaviour
     #endregion
 
 
-    /*private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(GroundCheckPos.position, groundCheckSize);
-    }*/
+        Gizmos.DrawWireCube(WallCheckPos.position, wallCheckSize);
+    }
 }
 
 [System.Serializable]
@@ -146,5 +177,6 @@ public class PlayerStats
 {
     public float PlayerSpeed;
     public float PlayerJumpSpeed;
+    public float PlayerWallSlideSpeed;
 
 }
