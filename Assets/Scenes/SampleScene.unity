@@ -305,6 +305,7 @@ MonoBehaviour:
     PlayerWallJumpTime: 0.5
     PlayerWallJumpSpeed: 15
     PlayerMaxFallSpeed: 20
+    PlayerJumpHangTime: 0.1
   GroundCheckPos: {fileID: 681313632}
   GroundLayerMask:
     serializedVersion: 2
@@ -316,6 +317,7 @@ MonoBehaviour:
     m_Bits: 128
   BaseGravity: 2
   GravityMultiplier: 2
+  HangGravityMultiplier: 0.5
   wallJumpTimer: 0
 --- !u!114 &93766821
 MonoBehaviour:

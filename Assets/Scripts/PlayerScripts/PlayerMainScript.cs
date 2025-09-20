@@ -25,6 +25,7 @@ public class PlayerMainScript : MonoBehaviour
     [Header("Gravity Params")]
     public float BaseGravity;
     public float GravityMultiplier;
+    public float HangGravityMultiplier;
 
     private Rigidbody2D playerRigidbody;
     private SpriteRenderer playerSpriteRenderer;
@@ -40,10 +41,11 @@ public class PlayerMainScript : MonoBehaviour
         private float timeLastPressedJump = 0f;
         private float timeSinceLastJump = 0f;
         private float lastTimeOnGround = 0f;
-        private float coyoteTime = 0.2f;
+        private float coyoteTime = 0.4f;
         private float jumpBufferInterval = 0.1f; 
         private bool isHalfJump = false;
         private bool isWallJumping = false;
+        private bool isJumping = false;
     [SerializeField]
     private float wallJumpTimer = 0f;
 
@@ -135,12 +137,16 @@ public class PlayerMainScript : MonoBehaviour
 
     private void GravityFunctionality()
     {
-        if(playerRigidbody != null)
+        if (playerRigidbody != null)
         {
-            if(playerRigidbody.velocity.y < 0f && !isWallSliding)
+            if (playerRigidbody.velocity.y < -MainStats.PlayerJumpHangTime && !isWallSliding)
             {
                 playerRigidbody.gravityScale = BaseGravity * GravityMultiplier;
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, Mathf.Max(playerRigidbody.velocity.y, -MainStats.PlayerMaxFallSpeed));
+            }
+            else if ((isJumping ||isWallJumping ) && Mathf.Abs(playerRigidbody.velocity.y) < MainStats.PlayerJumpHangTime)
+            {
+                playerRigidbody.gravityScale = BaseGravity * HangGravityMultiplier;
             }
             else
             {
@@ -197,6 +203,7 @@ public class PlayerMainScript : MonoBehaviour
             lastTimeOnGround = Time.time;
             if(playerRigidbody.velocity.y <= 0.1f)
                 playerAnimatorScript.SetJump(false);
+            isJumping = false;
         }
     }
 
@@ -241,6 +248,7 @@ public class PlayerMainScript : MonoBehaviour
         timeLastPressedJump = Mathf.NegativeInfinity;
         timeSinceLastJump = Time.time;
         playerAnimatorScript.SetJump();
+        isJumping = true;
     }
     #endregion
 
@@ -262,5 +270,6 @@ public class PlayerStats
     public float PlayerWallJumpTime;
     public float PlayerWallJumpSpeed;
     public float PlayerMaxFallSpeed;
+    public float PlayerJumpHangTime;
 
 }
