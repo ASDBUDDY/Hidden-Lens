@@ -106,7 +106,7 @@ public class PlayerMainScript : MonoBehaviour
         if (isGrounded())
         {
             lastTimeOnGround = Time.time;
-            if(playerRigidbody.velocity.y < 0f)
+            if(playerRigidbody.velocity.y <= 0f)
                 playerAnimatorScript.SetJump(false);
         }
     }
