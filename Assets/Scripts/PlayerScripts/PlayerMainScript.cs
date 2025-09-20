@@ -52,7 +52,7 @@ public class PlayerMainScript : MonoBehaviour
     //Sliding variabls
     private bool isWallSliding = false;
     private float wallSlidingTimer = 0f;
-    private float wallSlidingCooldown =0.5f;
+    private float wallSlidingCooldown =0.2f;
     #endregion
 
     #endregion
@@ -117,7 +117,7 @@ public class PlayerMainScript : MonoBehaviour
                 {
                     transform.rotation = Quaternion.Euler(transform.position.x, 0, transform.position.z);
                 }
-                playerRigidbody.velocity = Vector2.SmoothDamp(playerRigidbody.velocity, new Vector2(horizontalMovement * MainStats.PlayerSpeed *(IsGrounded() ? 1f:0.8f), playerRigidbody.velocity.y), ref velocityRef, movementSmoothTime * (isWallJumping ? 0.5f:1f ));
+                playerRigidbody.velocity = Vector2.SmoothDamp(playerRigidbody.velocity, new Vector2(horizontalMovement * MainStats.PlayerSpeed *(IsGrounded() ? 1f:0.8f), playerRigidbody.velocity.y), ref velocityRef, movementSmoothTime * (isWallJumping ? 2f:1f ));
 
                 playerAnimatorScript.SetVelocity(Mathf.Clamp01(Mathf.Abs(playerRigidbody.velocity.x)), playerRigidbody.velocity.y);
             
@@ -244,6 +244,7 @@ public class PlayerMainScript : MonoBehaviour
    
     private void PerformJump(bool isHalf = false)
     {
+
         playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, MainStats.PlayerJumpSpeed * (isHalf ? 0.5f : 1f));
         timeLastPressedJump = Mathf.NegativeInfinity;
         timeSinceLastJump = Time.time;

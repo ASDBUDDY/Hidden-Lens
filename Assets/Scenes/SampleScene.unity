@@ -303,7 +303,7 @@ MonoBehaviour:
     PlayerJumpSpeed: 15
     PlayerWallSlideSpeed: 3
     PlayerWallJumpTime: 0.5
-    PlayerWallJumpSpeed: 15
+    PlayerWallJumpSpeed: 10
     PlayerMaxFallSpeed: 20
     PlayerJumpHangTime: 0.1
   GroundCheckPos: {fileID: 681313632}
