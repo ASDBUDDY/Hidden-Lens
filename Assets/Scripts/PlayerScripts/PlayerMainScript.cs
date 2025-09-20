@@ -22,6 +22,13 @@ public class PlayerMainScript : MonoBehaviour
     private Vector2 wallCheckSize = new Vector2(0.58f, 0.12f);
     public LayerMask WallLayerMask;
 
+    //Attack Layers
+    public Transform AttackCheckPos;
+    [SerializeField]
+    private Vector2 attackCheckSize = new Vector2(0.58f, 0.12f);
+    public LayerMask AttackLayerMask;
+
+
     [Header("Gravity Params")]
     public float BaseGravity;
     public float GravityMultiplier;
@@ -46,13 +53,18 @@ public class PlayerMainScript : MonoBehaviour
         private bool isHalfJump = false;
         private bool isWallJumping = false;
         private bool isJumping = false;
-    [SerializeField]
-    private float wallJumpTimer = 0f;
+        private float wallJumpTimer = 0f;
 
     //Sliding variabls
     private bool isWallSliding = false;
     private float wallSlidingTimer = 0f;
     private float wallSlidingCooldown =0.2f;
+    #endregion
+
+    #region Attack variables
+    private float attackTimer = 0f;
+    private bool isAttacking = false;
+
     #endregion
 
     #endregion
@@ -74,6 +86,7 @@ public class PlayerMainScript : MonoBehaviour
     void Update()
     {
         HandlePlayerMovement();
+        AttackUpdation();
     }
     #endregion
 
@@ -107,7 +120,8 @@ public class PlayerMainScript : MonoBehaviour
     {
         if (playerRigidbody != null)
         {
-            
+            if (!isAttacking)
+            {
                 if (horizontalMovement < 0f)
                 {
                     transform.rotation = Quaternion.Euler(transform.position.x, 180, transform.position.z);
@@ -117,8 +131,10 @@ public class PlayerMainScript : MonoBehaviour
                 {
                     transform.rotation = Quaternion.Euler(transform.position.x, 0, transform.position.z);
                 }
-                playerRigidbody.velocity = Vector2.SmoothDamp(playerRigidbody.velocity, new Vector2(horizontalMovement * MainStats.PlayerSpeed *(IsGrounded() ? 1f:0.8f), playerRigidbody.velocity.y), ref velocityRef, movementSmoothTime * (isWallJumping ? 2f:1f ));
 
+
+                playerRigidbody.velocity = Vector2.SmoothDamp(playerRigidbody.velocity, new Vector2(horizontalMovement * MainStats.PlayerSpeed * (IsGrounded() ? 1f : 0.8f), playerRigidbody.velocity.y), ref velocityRef, movementSmoothTime * (isWallJumping ? 2f : 1f));
+            }
                 playerAnimatorScript.SetVelocity(Mathf.Clamp01(Mathf.Abs(playerRigidbody.velocity.x)), playerRigidbody.velocity.y);
             
 
@@ -253,12 +269,50 @@ public class PlayerMainScript : MonoBehaviour
     }
     #endregion
 
+    #region Attack Functions
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if(attackTimer <= 0f)
+        {
+            playerAnimatorScript.SetAttack(true);
+            attackTimer = MainStats.PlayerAttackSpeed;
+            isAttacking = true;
+        }
+    }
+
+    private void AttackUpdation()
+    {
+        if (attackTimer > 0f)
+        {
+           attackTimer -= Time.deltaTime;    
+        }
+    }
+    public void ResetAttack()
+    {
+        isAttacking = false;
+        playerAnimatorScript.SetAttack(false);
+    }
+
+    public void ExecuteAttack()
+    {
+        Collider2D[] Colliders = Physics2D.OverlapBoxAll(AttackCheckPos.position, attackCheckSize, 0, AttackLayerMask);
+        
+            foreach (var item in Colliders) {
+
+                Debug.Log(item.gameObject.name);
+            }
+        
+    }
+
+    #endregion
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(GroundCheckPos.position, groundCheckSize);
         Gizmos.DrawWireCube(WallCheckPos.position, wallCheckSize);
+        Gizmos.DrawWireCube(AttackCheckPos.position, attackCheckSize);
     }
 }
 
@@ -272,5 +326,7 @@ public class PlayerStats
     public float PlayerWallJumpSpeed;
     public float PlayerMaxFallSpeed;
     public float PlayerJumpHangTime;
+    public float PlayerAttackSpeed;
+    public float PlayerAttackPower;
 
 }

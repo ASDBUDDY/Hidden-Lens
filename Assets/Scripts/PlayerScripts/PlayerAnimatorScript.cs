@@ -16,6 +16,8 @@ public class PlayerAnimatorScript : MonoBehaviour
     private int jump = 0; 
     private static string isWallSliding = "IsWallSliding";
     private int wallSlide = 0;
+    private static string isAttacking = "IsAttacking";
+    private int attack = 0;
 
     #endregion
     private void Awake()
@@ -25,6 +27,7 @@ public class PlayerAnimatorScript : MonoBehaviour
         velY = Animator.StringToHash(velocityY);
         jump = Animator.StringToHash(isJumping);
         wallSlide = Animator.StringToHash(isWallSliding);
+        attack = Animator.StringToHash(isAttacking);
     }
 
     public void SetVelocity(float velocityX, float velocityY)
@@ -42,5 +45,11 @@ public class PlayerAnimatorScript : MonoBehaviour
     {
         if (playerAnimator.GetBool(wallSlide) != flag)
             playerAnimator.SetBool(wallSlide, flag);
+    }
+
+    public void SetAttack(bool flag = true)
+    {
+        if (playerAnimator.GetBool(attack) != flag)
+            playerAnimator.SetBool(attack, flag);
     }
 }
