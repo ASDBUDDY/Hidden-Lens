@@ -177,7 +177,11 @@ public class PlayerMainScript : MonoBehaviour
         {
             isWallSliding = true;
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, Mathf.Max(playerRigidbody.velocity.y, -MainStats.PlayerWallSlideSpeed));
-            
+
+            if (isAttacking)
+            {
+                ResetAttack();
+            }
         }
         else
         {
@@ -253,6 +257,10 @@ public class PlayerMainScript : MonoBehaviour
                 playerAnimatorScript.SetJump(true);
                 Invoke(nameof(CancelWallJump), MainStats.PlayerWallJumpTime + 0.1f);
                 timeSinceLastJump = Time.time;
+            }
+            if (isAttacking)
+            {
+                ResetAttack();
             }
         }
     }
