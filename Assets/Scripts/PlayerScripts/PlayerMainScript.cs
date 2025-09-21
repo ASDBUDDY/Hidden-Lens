@@ -34,6 +34,13 @@ public class PlayerMainScript : MonoBehaviour
     public float GravityMultiplier;
     public float HangGravityMultiplier;
 
+    [Header("Crouch Params")]
+    public float OriginalYSize = 0.3785404f;
+    public float OriginalYPos = -0.02223387f;
+    public float CrouchYSize = 0f;
+    public float CrouchYPos = 0f;
+
+    private BoxCollider2D playerCollider;
     private Rigidbody2D playerRigidbody;
     private SpriteRenderer playerSpriteRenderer;
     private PlayerAnimatorScript playerAnimatorScript;
@@ -48,17 +55,20 @@ public class PlayerMainScript : MonoBehaviour
         private float timeLastPressedJump = 0f;
         private float timeSinceLastJump = 0f;
         private float lastTimeOnGround = 0f;
-        private float coyoteTime = 0.4f;
+        private float coyoteTime = 0.3f;
         private float jumpBufferInterval = 0.1f; 
         private bool isHalfJump = false;
         private bool isWallJumping = false;
         private bool isJumping = false;
         private float wallJumpTimer = 0f;
 
-    //Sliding variabls
+    //Sliding variables
     private bool isWallSliding = false;
     private float wallSlidingTimer = 0f;
     private float wallSlidingCooldown =0.2f;
+
+    //Crouch variables
+    private bool isCrouching = false;
     #endregion
 
     #region Attack variables
@@ -75,6 +85,7 @@ public class PlayerMainScript : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         playerAnimatorScript = GetComponent<PlayerAnimatorScript>();
+        playerCollider = GetComponent<BoxCollider2D>();  
     }
     // Start is called before the first frame update
     void Start()
@@ -122,6 +133,7 @@ public class PlayerMainScript : MonoBehaviour
         {
             if (!isAttacking)
             {
+                
                 if (horizontalMovement < 0f)
                 {
                     transform.rotation = Quaternion.Euler(transform.position.x, 180, transform.position.z);
@@ -132,8 +144,8 @@ public class PlayerMainScript : MonoBehaviour
                     transform.rotation = Quaternion.Euler(transform.position.x, 0, transform.position.z);
                 }
 
-
-                playerRigidbody.velocity = Vector2.SmoothDamp(playerRigidbody.velocity, new Vector2(horizontalMovement * MainStats.PlayerSpeed * (IsGrounded() ? 1f : 0.8f), playerRigidbody.velocity.y), ref velocityRef, movementSmoothTime * (isWallJumping ? 2f : 1f));
+                if (!isCrouching)
+                    playerRigidbody.velocity = Vector2.SmoothDamp(playerRigidbody.velocity, new Vector2(horizontalMovement * MainStats.PlayerSpeed * (IsGrounded() ? 1f : 0.8f), playerRigidbody.velocity.y), ref velocityRef, movementSmoothTime * (isWallJumping ? 2f : 1f));
             }
                 playerAnimatorScript.SetVelocity(Mathf.Clamp01(Mathf.Abs(playerRigidbody.velocity.x)), playerRigidbody.velocity.y);
             
@@ -226,7 +238,41 @@ public class PlayerMainScript : MonoBehaviour
             isJumping = false;
         }
     }
+    public void CrouchFunction(InputAction.CallbackContext context)
+    {
+        float CheckFloat = context.ReadValue<float>();
 
+        if (IsGrounded() || isCrouching)
+        {
+           
+
+            if (CheckFloat ==1 && !isCrouching)
+            {
+                isCrouching = true;
+                playerAnimatorScript.SetCrouch(isCrouching);
+                playerCollider.size = new Vector2(playerCollider.size.x, CrouchYSize);
+                playerCollider.offset = new Vector2(playerCollider.offset.x, CrouchYPos);
+            }
+            else if (CheckFloat == 0 && isCrouching)   
+            {
+                ResetCrouch();
+            }
+            else
+            {
+
+            }
+
+
+        }
+    }
+
+    public void ResetCrouch()
+    {
+        isCrouching = false;
+        playerAnimatorScript.SetCrouch(isCrouching);
+        playerCollider.size = new Vector2(playerCollider.size.x, OriginalYSize);
+        playerCollider.offset = new Vector2(playerCollider.offset.x, OriginalYPos);
+    }
     public void JumpFunction(InputAction.CallbackContext context)
     {
 
@@ -262,6 +308,10 @@ public class PlayerMainScript : MonoBehaviour
             {
                 ResetAttack();
             }
+            if(isCrouching)
+            {
+                ResetCrouch();
+            }
         }
     }
 
@@ -286,6 +336,9 @@ public class PlayerMainScript : MonoBehaviour
             playerAnimatorScript.SetAttack(true);
             attackTimer = MainStats.PlayerAttackSpeed;
             isAttacking = true;
+
+            if(isCrouching)
+                ResetCrouch();
         }
     }
 

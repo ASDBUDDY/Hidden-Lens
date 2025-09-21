@@ -177,7 +177,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.008795664, y: -0.022233866}
+  m_Offset: {x: -0.008795664, y: -0.02223387}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.4, y: 0.5}
@@ -327,6 +327,10 @@ MonoBehaviour:
   BaseGravity: 2
   GravityMultiplier: 2
   HangGravityMultiplier: 0.5
+  OriginalYSize: 0.3785404
+  OriginalYPos: -0.02223387
+  CrouchYSize: 0.23
+  CrouchYPos: -0.1
 --- !u!114 &93766821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +448,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8074d0e5-01e4-4ab0-a259-9acb7a88d829
     m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 93766820}
+        m_TargetAssemblyTypeName: PlayerMainScript, Assembly-CSharp
+        m_MethodName: CrouchFunction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 502bdab3-bffd-4e8b-ab65-bfbe4f7a3b76
+    m_ActionName: Player/Crouch[/Keyboard/leftCtrl,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
