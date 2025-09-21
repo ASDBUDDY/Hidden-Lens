@@ -37,8 +37,8 @@ public class PlayerMainScript : MonoBehaviour
     [Header("Crouch Params")]
     public float OriginalYSize = 0.3785404f;
     public float OriginalYPos = -0.02223387f;
-    public float CrouchYSize = 0f;
-    public float CrouchYPos = 0f;
+    public float CrouchYSize = 0.23f;
+    public float CrouchYPos = -0.1f;
 
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerRigidbody;
