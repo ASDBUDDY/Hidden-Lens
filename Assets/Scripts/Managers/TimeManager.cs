@@ -7,8 +7,8 @@ public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance;
 
-    //public BoolEventChannelSO PauseEvent;
-    public bool TimePaused; /*{  get; private set; }*/
+    public BoolEventChannelSO PauseEvent;
+    public bool TimePaused {  get; private set; }
 
     /// <summary>
     /// General Time
@@ -84,7 +84,7 @@ public class TimeManager : MonoBehaviour
         TimePaused = flag;
         DeltaTime = flag ? 0 : TimeInSeconds - timeLastFrame;
         FixedDeltaTime = flag ? 0 : 1f / 50;
-        //PauseEvent.RaiseEvent(flag);
+        PauseEvent.RaiseEvent(flag);
     }
 
     private void CalculateOnScreenTime()

@@ -71,4 +71,6 @@ public class PlayerAnimatorScript : MonoBehaviour
     public void CallHurt() => playerAnimator.SetTrigger(isHurt);
     public void CallDeath() => playerAnimator.SetTrigger(isDead);
 
+
+    public void PauseAnimator(bool flag = true) => playerAnimator.enabled = !flag;
 }

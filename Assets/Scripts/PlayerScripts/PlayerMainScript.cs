@@ -42,6 +42,7 @@ public class PlayerMainScript : MonoBehaviour
     public float CrouchYSize = 0.23f;
     public float CrouchYPos = -0.1f;
 
+    private Vector2 pauseVelocity = Vector2.zero;
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerRigidbody;
     private SpriteRenderer playerSpriteRenderer;
@@ -98,6 +99,9 @@ public class PlayerMainScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (TimeManager.Instance.TimePaused)
+            return; 
+
         HandlePlayerMovement();
         AttackUpdation();
     }
@@ -129,7 +133,7 @@ public class PlayerMainScript : MonoBehaviour
     {    
         if (playerHealth.IsDead || TimeManager.Instance.TimePaused)
         {
-            if (playerHealth.IsDead)
+            
                 horizontalMovement = 0f;
 
             return;
@@ -419,6 +423,37 @@ public class PlayerMainScript : MonoBehaviour
         playerAnimatorScript.CallDeath();
         ResetAttack();
         ResetCrouch();
+    }
+    #endregion
+
+    #region Other Functions
+
+
+    public void PauseFunction(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            TimeManager.Instance.PauseGame(!TimeManager.Instance.TimePaused);
+        }
+    }
+    public void OnPauseCall(bool flag)
+    {
+        flag = TimeManager.Instance.TimePaused;
+
+
+        playerAnimatorScript.PauseAnimator(flag);
+        if (flag)
+        {
+            pauseVelocity = playerRigidbody.velocity;
+            playerRigidbody.velocity = Vector2.zero;
+            playerRigidbody.gravityScale = 0;
+        }
+        else
+        {
+            playerRigidbody.velocity =  pauseVelocity;
+            playerRigidbody.gravityScale = BaseGravity;
+
+        }
     }
     #endregion
     private void OnDrawGizmosSelected()

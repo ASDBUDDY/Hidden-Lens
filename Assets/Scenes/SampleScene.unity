@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 93766820}
   - component: {fileID: 93766822}
   - component: {fileID: 93766823}
+  - component: {fileID: 93766824}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -464,6 +465,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 502bdab3-bffd-4e8b-ab65-bfbe4f7a3b76
     m_ActionName: Player/Crouch[/Keyboard/leftCtrl,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 93766820}
+        m_TargetAssemblyTypeName: PlayerMainScript, Assembly-CSharp
+        m_MethodName: PauseFunction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6872d196-5c3d-422b-a10b-edd53f4c61b8
+    m_ActionName: Player/Pause[/Keyboard/p,/XInputControllerWindows/select,/XInputControllerWindows1/select]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -502,6 +519,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc90743fd851114d99e170b0c9fd547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &93766824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93766815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763f9745df55ae84dae33463107dfa3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventChannel: {fileID: 11400000, guid: 89e9720a945fd04499860ea82692493b, type: 2}
+  onEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 93766820}
+        m_TargetAssemblyTypeName: PlayerMainScript, Assembly-CSharp
+        m_MethodName: OnPauseCall
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &302356249
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,6 +654,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &309744638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 309744640}
+  - component: {fileID: 309744639}
+  m_Layer: 0
+  m_Name: TimeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &309744639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309744638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6316ebb5d1ad94b4d843aa34711f15d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PauseEvent: {fileID: 11400000, guid: 89e9720a945fd04499860ea82692493b, type: 2}
+  timeLastFrame: 0
+  timeText: {fileID: 0}
+  ActiveTimer: 0
+--- !u!4 &309744640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309744638}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.277025, y: -0.44567773, z: -0.11525018}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &435751269
 GameObject:
   m_ObjectHideFlags: 0
@@ -8346,3 +8439,4 @@ SceneRoots:
   - {fileID: 93766819}
   - {fileID: 586837631}
   - {fileID: 1461845904}
+  - {fileID: 309744640}
