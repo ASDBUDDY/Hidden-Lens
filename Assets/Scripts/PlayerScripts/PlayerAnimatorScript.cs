@@ -20,6 +20,10 @@ public class PlayerAnimatorScript : MonoBehaviour
     private int attack = 0;
     private static string isCrouching = "IsCrouching";
     private int crouch = 0;
+    private static string isHurt = "IsHurt";
+    private int hurt = 0;
+    private static string isDead = "IsDead";
+    private int dead = 0;
 
     #endregion
     private void Awake()
@@ -31,6 +35,8 @@ public class PlayerAnimatorScript : MonoBehaviour
         wallSlide = Animator.StringToHash(isWallSliding);
         attack = Animator.StringToHash(isAttacking);
         crouch = Animator.StringToHash(isCrouching);
+        hurt = Animator.StringToHash(isHurt);
+        dead = Animator.StringToHash(isDead);
     }
 
     public void SetVelocity(float velocityX, float velocityY)
@@ -61,5 +67,8 @@ public class PlayerAnimatorScript : MonoBehaviour
         if (playerAnimator.GetBool(crouch) != flag)
             playerAnimator.SetBool(crouch, flag);
     }
+
+    public void CallHurt() => playerAnimator.SetTrigger(isHurt);
+    public void CallDeath() => playerAnimator.SetTrigger(isDead);
 
 }

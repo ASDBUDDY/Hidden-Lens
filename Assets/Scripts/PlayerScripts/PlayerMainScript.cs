@@ -10,6 +10,8 @@ public class PlayerMainScript : MonoBehaviour
     #region Variables
     [Header("Player Stats")]
     public PlayerStats MainStats;
+    
+    private HealthComponent playerHealth;
 
     [Header("Layer Checks")]
     //Ground Layer
@@ -90,7 +92,7 @@ public class PlayerMainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerHealth = new HealthComponent(30f);
     }
 
     // Update is called once per frame
@@ -124,7 +126,9 @@ public class PlayerMainScript : MonoBehaviour
 
     #region Movement Functions
     public void MoveFunction(InputAction.CallbackContext context)
-    {
+    {   if (playerHealth.IsDead)
+            return;
+
         horizontalMovement = context.ReadValue<Vector2>().x;
     }
     private void HandlePlayerMovement()
@@ -240,6 +244,8 @@ public class PlayerMainScript : MonoBehaviour
     }
     public void CrouchFunction(InputAction.CallbackContext context)
     {
+        if (playerHealth.IsDead)
+            return;
         float CheckFloat = context.ReadValue<float>();
 
         if (IsGrounded() || isCrouching)
@@ -275,8 +281,9 @@ public class PlayerMainScript : MonoBehaviour
     }
     public void JumpFunction(InputAction.CallbackContext context)
     {
-
-         timeLastPressedJump = Time.time;
+        if (playerHealth.IsDead)
+            return;
+        timeLastPressedJump = Time.time;
          isHalfJump = context.performed ? false : context.canceled ? true : false;
 
         if (Time.time - timeSinceLastJump > 0.5f)
@@ -331,7 +338,10 @@ public class PlayerMainScript : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if(attackTimer <= 0f)
+        if (playerHealth.IsDead)
+            return;
+
+        if (attackTimer <= 0f)
         {
             playerAnimatorScript.SetAttack(true);
             attackTimer = MainStats.PlayerAttackSpeed;
@@ -368,6 +378,39 @@ public class PlayerMainScript : MonoBehaviour
 
     #endregion
 
+    #region Health Functions
+
+     
+    public void OnDamage(float damage)
+    {
+        playerHealth.DamageHealth(damage);
+
+        Debug.Log($"Player Health : {playerHealth.CurrentHealth}");
+
+        if (playerHealth.IsDead)
+        {
+            CallDeath();
+        }
+        else
+            CallHurt();
+
+        playerRigidbody.velocity = Vector3.zero;
+    }
+
+    public void CallHurt()
+    {
+        playerAnimatorScript.CallHurt();
+        ResetAttack();
+        ResetCrouch();
+    }
+
+    public void CallDeath()
+    {
+        playerAnimatorScript.CallDeath();
+        ResetAttack();
+        ResetCrouch();
+    }
+    #endregion
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
