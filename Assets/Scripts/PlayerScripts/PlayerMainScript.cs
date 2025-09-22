@@ -126,8 +126,15 @@ public class PlayerMainScript : MonoBehaviour
 
     #region Movement Functions
     public void MoveFunction(InputAction.CallbackContext context)
-    {   if (playerHealth.IsDead)
+    {    
+        if (playerHealth.IsDead || TimeManager.Instance.TimePaused)
+        {
+            if (playerHealth.IsDead)
+                horizontalMovement = 0f;
+
             return;
+        }
+       
 
         horizontalMovement = context.ReadValue<Vector2>().x;
     }
@@ -157,7 +164,7 @@ public class PlayerMainScript : MonoBehaviour
             GroundCheck();
             ProcessWallSlide();
             ProcessWallJump();
-            if(IsGrounded() && Time.time - timeLastPressedJump <= jumpBufferInterval)
+            if(IsGrounded() && TimeManager.Instance.TimeInSeconds - timeLastPressedJump <= jumpBufferInterval)
             {
                 
                 PerformJump(isHalfJump);
@@ -209,7 +216,7 @@ public class PlayerMainScript : MonoBehaviour
         }
 
         if(wallSlidingTimer > 0f) 
-            wallSlidingTimer -= Time.deltaTime;
+            wallSlidingTimer -= TimeManager.Instance.DeltaTime;
 
         playerAnimatorScript.SetWallSide(isWallSliding);
     }
@@ -224,7 +231,7 @@ public class PlayerMainScript : MonoBehaviour
         }
         else if (wallJumpTimer > 0f)
         {
-            wallJumpTimer -= Time.deltaTime;
+            wallJumpTimer -= TimeManager.Instance.DeltaTime;
             
         }
     }
@@ -236,7 +243,7 @@ public class PlayerMainScript : MonoBehaviour
     {
         if (IsGrounded())
         {
-            lastTimeOnGround = Time.time;
+            lastTimeOnGround = TimeManager.Instance.TimeInSeconds;
             if(playerRigidbody.velocity.y <= 0.1f)
                 playerAnimatorScript.SetJump(false);
             isJumping = false;
@@ -244,7 +251,7 @@ public class PlayerMainScript : MonoBehaviour
     }
     public void CrouchFunction(InputAction.CallbackContext context)
     {
-        if (playerHealth.IsDead)
+        if (playerHealth.IsDead || TimeManager.Instance.TimePaused)
             return;
         float CheckFloat = context.ReadValue<float>();
 
@@ -281,14 +288,14 @@ public class PlayerMainScript : MonoBehaviour
     }
     public void JumpFunction(InputAction.CallbackContext context)
     {
-        if (playerHealth.IsDead)
+        if (playerHealth.IsDead || TimeManager.Instance.TimePaused)
             return;
-        timeLastPressedJump = Time.time;
+        timeLastPressedJump = TimeManager.Instance.TimeInSeconds;
          isHalfJump = context.performed ? false : context.canceled ? true : false;
 
-        if (Time.time - timeSinceLastJump > 0.5f)
+        if (TimeManager.Instance.TimeInSeconds - timeSinceLastJump > 0.5f)
         {
-            if (IsGrounded() || Time.time - lastTimeOnGround <= coyoteTime)
+            if (IsGrounded() || TimeManager.Instance.TimeInSeconds - lastTimeOnGround <= coyoteTime)
             {
 
                 PerformJump(isHalfJump);
@@ -309,7 +316,7 @@ public class PlayerMainScript : MonoBehaviour
 
                 playerAnimatorScript.SetJump(true);
                 Invoke(nameof(CancelWallJump), MainStats.PlayerWallJumpTime + 0.1f);
-                timeSinceLastJump = Time.time;
+                timeSinceLastJump = TimeManager.Instance.TimeInSeconds;
             }
             if (isAttacking)
             {
@@ -328,7 +335,7 @@ public class PlayerMainScript : MonoBehaviour
 
         playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, MainStats.PlayerJumpSpeed * (isHalf ? 0.5f : 1f));
         timeLastPressedJump = Mathf.NegativeInfinity;
-        timeSinceLastJump = Time.time;
+        timeSinceLastJump = TimeManager.Instance.TimeInSeconds;
         playerAnimatorScript.SetJump();
         isJumping = true;
     }
@@ -338,7 +345,7 @@ public class PlayerMainScript : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (playerHealth.IsDead)
+        if (playerHealth.IsDead || TimeManager.Instance.TimePaused)
             return;
 
         if (attackTimer <= 0f)
@@ -356,7 +363,7 @@ public class PlayerMainScript : MonoBehaviour
     {
         if (attackTimer > 0f)
         {
-           attackTimer -= Time.deltaTime;    
+           attackTimer -= TimeManager.Instance.DeltaTime;    
         }
     }
     public void ResetAttack()
@@ -383,7 +390,10 @@ public class PlayerMainScript : MonoBehaviour
      
     public void OnDamage(float damage)
     {
-        playerHealth.DamageHealth(damage);
+        if (playerHealth.IsDead || TimeManager.Instance.TimePaused)
+            return;
+
+            playerHealth.DamageHealth(damage);
 
         Debug.Log($"Player Health : {playerHealth.CurrentHealth}");
 
