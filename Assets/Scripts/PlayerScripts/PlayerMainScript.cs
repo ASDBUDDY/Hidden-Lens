@@ -68,7 +68,7 @@ public class PlayerMainScript : MonoBehaviour
     //Sliding variables
     private bool isWallSliding = false;
     private float wallSlidingTimer = 0f;
-    private float wallSlidingCooldown =0.2f;
+    private float wallSlidingCooldown =0.1f;
 
     //Crouch variables
     private bool isCrouching = false;
@@ -269,6 +269,9 @@ public class PlayerMainScript : MonoBehaviour
                 playerAnimatorScript.SetCrouch(isCrouching);
                 playerCollider.size = new Vector2(playerCollider.size.x, CrouchYSize);
                 playerCollider.offset = new Vector2(playerCollider.offset.x, CrouchYPos);
+
+                if (isAttacking)
+                    ResetAttack();
             }
             else if (CheckFloat == 0 && isCrouching)   
             {
