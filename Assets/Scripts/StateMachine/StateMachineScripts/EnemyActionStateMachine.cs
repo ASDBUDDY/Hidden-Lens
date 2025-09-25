@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class EnemyActionStateMachine : StateMachine<EnemyActionBaseState, EnemyActionStateEnum> //State Machine
 {
     #region Variables
 
-    //[SerializeField] BaseClass baseClass;
+    [SerializeField] EnemyBaseScript baseClass;
 
     #endregion
 
@@ -15,14 +16,15 @@ public class EnemyActionStateMachine : StateMachine<EnemyActionBaseState, EnemyA
     {
         // Sets up Essential components
        
-        //baseClass = this.GetComponentInParent<BaseClass>();
+        baseClass = this.GetComponent<EnemyBaseScript>();
 
         //Array of States to be initialized for StateMachine to be set to
-        states = new EnemyActionBaseState[4];
-        states[0] = new EnemyIdleActionState(this);
-        states[1] = new EnemyAttackActionState(this);
-        states[2] = new EnemyBlockActionState(this);
-        states[2] = new EnemyHurtActionState(this);
+        states = new EnemyActionBaseState[5];
+        states[0] = new EnemyIdleActionState(this,baseClass);
+        states[1] = new EnemyAttackActionState(this, baseClass);
+        states[2] = new EnemyBlockActionState(this, baseClass);
+        states[3] = new EnemyHurtActionState(this, baseClass);
+        states[4] = new EnemyChaseActionState(this, baseClass);
 
 
 
@@ -61,6 +63,7 @@ public class EnemyActionStateMachine : StateMachine<EnemyActionBaseState, EnemyA
 public enum EnemyActionStateEnum
 {
     Idle,
+    Chase,
     Attack,
     Block,
     Hurt
@@ -75,13 +78,14 @@ public abstract class EnemyActionBaseState : State<EnemyActionStateEnum>
     // VARIABLES
 
     private EnemyActionStateMachine StateMachine;
-    //private BaseClass baseClass
+    private EnemyBaseScript BaseClass;
 
     // CONSTRUCTOR
-    protected EnemyActionBaseState(EnemyActionStateMachine stateMachine /* ANY OTHER PARAMETERS */)
+    protected EnemyActionBaseState(EnemyActionStateMachine stateMachine, EnemyBaseScript enemyBase /* ANY OTHER PARAMETERS */)
     {
         
         this.StateMachine = stateMachine;
+        this.BaseClass = enemyBase;
        
     }
 
@@ -95,5 +99,6 @@ public abstract class EnemyActionBaseState : State<EnemyActionStateEnum>
     }
     
 
+    protected void ChaseFunction() => BaseClass.ChaseFunction();
 
 }

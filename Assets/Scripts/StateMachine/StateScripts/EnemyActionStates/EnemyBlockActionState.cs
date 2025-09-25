@@ -7,7 +7,7 @@ public class EnemyBlockActionState : EnemyActionBaseState
 {
     public override EnemyActionStateEnum Type => EnemyActionStateEnum.Block;
 
-    public EnemyBlockActionState(EnemyActionStateMachine stateMachine) : base(stateMachine)
+    public EnemyBlockActionState(EnemyActionStateMachine stateMachine, EnemyBaseScript baseClass) : base(stateMachine, baseClass)
     {
 
     }

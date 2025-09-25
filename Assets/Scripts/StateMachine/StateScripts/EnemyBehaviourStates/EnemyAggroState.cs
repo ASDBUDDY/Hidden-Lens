@@ -14,20 +14,21 @@ public class EnemyAggroState : EnemyBaseState
     internal override void OnEnter()
     {
         base.OnEnter();
-       
+       SetActionState(EnemyActionStateEnum.Chase);
 
     }
     internal override void OnExit()
     {
         base.OnExit();
-
+        SetActionState(EnemyActionStateEnum.Idle);
     }
     internal override void Update()
     {
 
         base.Update();
-        
 
+        DetectionFunction();
+        AttackDetection();
 
     }
 

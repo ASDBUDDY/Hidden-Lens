@@ -15,7 +15,7 @@ public class EnemyStateMachine : StateMachine<EnemyBaseState, EnemyStateEnum> //
     {
         // Sets up Essential components
        
-        baseClass = this.GetComponentInParent<EnemyBaseScript>();
+        baseClass = this.GetComponent<EnemyBaseScript>();
 
         //Array of States to be initialized for StateMachine to be set to
         states = new EnemyBaseState[3];
@@ -94,5 +94,11 @@ public abstract class EnemyBaseState : State<EnemyStateEnum>
     }
     
     protected void MovementFunction() => BaseClass.MovementFunction();
+
+    protected void DetectionFunction()=> BaseClass.DetectionFunction();
+
+    protected void AttackDetection() => BaseClass.CheckForAttack();
+
+    protected void SetActionState(EnemyActionStateEnum actionState) => BaseClass.SetActionState(actionState);
 
 }

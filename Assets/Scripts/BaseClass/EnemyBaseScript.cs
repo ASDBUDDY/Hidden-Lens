@@ -10,6 +10,7 @@ public class EnemyBaseScript : MonoBehaviour
     [SerializeField]
     private EnemyStats mainStats;
 
+    
     public List<GameObject> MovementList;
     public EnemyTypeEnum EnemyType;
     public GameObject EnemySpriteObj;
@@ -22,8 +23,25 @@ public class EnemyBaseScript : MonoBehaviour
 
     #endregion
 
+    #region Detection Variables
+    public LayerMask DetectionLayerMask;
+    private float detectionTimer = 0f;
+
+    private GameObject TargetObj;
+
     #endregion
 
+    #region Attack Variables
+    private float attackTimer = 0f;
+    private int attackType = 0;
+
+
+
+    #endregion
+
+    #endregion
+
+    #region Base Methods
     private void Awake()
     {
         behaviourStateMachine = GetComponent<EnemyStateMachine>();
@@ -41,8 +59,11 @@ public class EnemyBaseScript : MonoBehaviour
     public virtual void Update()
     {
         behaviourStateMachine.CallStateUpdate();
+        actionStateMachine.CallStateUpdate();
     }
+    #endregion
 
+    #region Functionality Body
     public virtual void MovementFunction()
     {
         if(movementCounter >= MovementList.Count)
@@ -68,6 +89,77 @@ public class EnemyBaseScript : MonoBehaviour
         }
         
     }
+
+    public virtual void DetectionFunction()
+    {
+        if (detectionTimer > 0.1f)
+        {
+            detectionTimer = 0f;
+
+            Collider2D ColliderHit = Physics2D.OverlapBox(EnemySpriteObj.transform.position + EnemySpriteObj.transform.right * -1, mainStats.DetectionRange, 0, DetectionLayerMask);
+            if (ColliderHit)
+            {
+                TargetObj = ColliderHit.gameObject;
+                behaviourStateMachine.SetState(EnemyStateEnum.Aggro);
+            }
+            else if(TargetObj != null)
+            {
+                TargetObj = null;
+                behaviourStateMachine.SetState(EnemyStateEnum.Idle);
+            }
+
+        }
+        else
+        {
+            detectionTimer += TimeManager.Instance.DeltaTime;
+        }
+    }
+
+    public virtual void ChaseFunction()
+    {
+        if (TargetObj != null)
+        {
+            if (Vector3.Distance(EnemySpriteObj.transform.position, TargetObj.transform.position) > mainStats.AttackRange[0].x)
+            {
+                Vector3 newDest = Vector3.MoveTowards(EnemySpriteObj.transform.position, TargetObj.transform.position, mainStats.MovementSpeed * TimeManager.Instance.DeltaTime);
+                newDest.y = EnemySpriteObj.transform.position.y;
+                EnemySpriteObj.transform.position = newDest;
+            }
+        }
+    }
+
+    public virtual void CheckForAttack()
+    {
+        if (attackTimer <= 0f)
+        {
+            if (TargetObj != null)
+            {
+                float range = Vector3.Distance(EnemySpriteObj.transform.position, TargetObj.transform.position);
+                for (int i = 0; i < mainStats.AttackRange.Count; i++)
+                {
+                    if (range >= mainStats.AttackRange[i].x && range <= mainStats.AttackRange[i].y)
+                    {
+                        /*actionStateMachine.SetState(EnemyActionStateEnum.Attack);
+                        attackType = i; break;*/
+
+                        Debug.Log("I'mma attack");
+                    }
+                }
+            }
+        }
+    }
+
+    public void SetActionState(EnemyActionStateEnum actionState) => actionStateMachine.SetState(actionState);
+    #endregion
+
+    #region Debug Methods
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(EnemySpriteObj.transform.position + EnemySpriteObj.transform.right *-1, mainStats.DetectionRange);
+    }
+    #endregion
 }
 
 [System.Serializable]
@@ -87,5 +179,6 @@ public class EnemyStats
     public float AttackSpeed;
     public List<float> DamageData;
     public float StopTime;
-
+    public Vector2 DetectionRange;
+    public List<Vector2> AttackRange;
 }

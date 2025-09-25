@@ -279,7 +279,7 @@ Transform:
   m_GameObject: {fileID: 93766815}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.9276, y: -2.41, z: -0.010571893}
+  m_LocalPosition: {x: -11.08, y: 0.81, z: -0.010571893}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1157,7 +1157,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.9276, y: -2.41, z: -10.0105715}
+  m_LocalPosition: {x: -7.582903, y: 0.81536776, z: -10.0105715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1263,7 +1263,7 @@ Transform:
   m_GameObject: {fileID: 586837629}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.9276, y: -2.41, z: -10.0105715}
+  m_LocalPosition: {x: -11.08, y: 0.81, z: -10.0105715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8442,6 +8442,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1461845904}
     m_Modifications:
+    - target: {fileID: 1097901902119763402, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: DetectionLayerMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097901902119763402, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: mainStats.DetectionRange.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097901902119763402, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: mainStats.DetectionRange.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097901902119763402, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: mainStats.AttackRange.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097901902119763402, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: mainStats.AttackRange.Array.data[0].x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097901902119763402, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: mainStats.AttackRange.Array.data[0].y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4785844437675378699, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
       propertyPath: m_Name
       value: SlimeEnemyParent

@@ -7,7 +7,7 @@ public class EnemyIdleActionState : EnemyActionBaseState
 {
     public override EnemyActionStateEnum Type => EnemyActionStateEnum.Idle;
 
-    public EnemyIdleActionState(EnemyActionStateMachine stateMachine) : base(stateMachine)
+    public EnemyIdleActionState(EnemyActionStateMachine stateMachine, EnemyBaseScript baseClass) : base(stateMachine,baseClass)
     {
 
     }

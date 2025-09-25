@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIdleState : EnemyBaseState
+public class EnemyChaseActionState : EnemyActionBaseState
 {
-    public override EnemyStateEnum Type => EnemyStateEnum.Idle;
+    public override EnemyActionStateEnum Type => EnemyActionStateEnum.Chase;
 
-    public EnemyIdleState(EnemyStateMachine stateMachine,EnemyBaseScript baseClass) : base(stateMachine,baseClass)
+    public EnemyChaseActionState(EnemyActionStateMachine stateMachine, EnemyBaseScript baseClass) : base(stateMachine,baseClass)
     {
 
     }
@@ -26,8 +26,7 @@ public class EnemyIdleState : EnemyBaseState
     {
 
         base.Update();
-        MovementFunction();
-        DetectionFunction();
+        ChaseFunction();
 
 
     }
