@@ -165,11 +165,15 @@ public class EnemyBaseScript : MonoBehaviour
                     {
                         /*actionStateMachine.SetState(EnemyActionStateEnum.Attack);
                         attackType = i; break;*/
-
+                        attackTimer = mainStats.AttackSpeed;
                         Debug.Log("I'mma attack");
                     }
                 }
             }
+        }
+        else
+        {
+            attackTimer -= TimeManager.Instance.DeltaTime;
         }
     }
 
