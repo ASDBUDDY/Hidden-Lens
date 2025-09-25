@@ -6,7 +6,7 @@ public class EnemyStateMachine : StateMachine<EnemyBaseState, EnemyStateEnum> //
 {
     #region Variables
 
-    //[SerializeField] BaseClass baseClass;
+    [SerializeField] EnemyBaseScript baseClass;
 
     #endregion
 
@@ -15,13 +15,13 @@ public class EnemyStateMachine : StateMachine<EnemyBaseState, EnemyStateEnum> //
     {
         // Sets up Essential components
        
-        //baseClass = this.GetComponentInParent<BaseClass>();
+        baseClass = this.GetComponentInParent<EnemyBaseScript>();
 
         //Array of States to be initialized for StateMachine to be set to
         states = new EnemyBaseState[3];
-        states[0] = new EnemyIdleState(this);
-        states[1] = new EnemyAggroState(this);
-        states[2] = new EnemyDeadState(this);
+        states[0] = new EnemyIdleState(this,baseClass);
+        states[1] = new EnemyAggroState(this, baseClass);
+        states[2] = new EnemyDeadState(this, baseClass);
 
 
 
@@ -73,13 +73,14 @@ public abstract class EnemyBaseState : State<EnemyStateEnum>
     // VARIABLES
 
     private EnemyStateMachine StateMachine;
-    //private BaseClass baseClass
+    private EnemyBaseScript BaseClass;
 
     // CONSTRUCTOR
-    protected EnemyBaseState(EnemyStateMachine stateMachine /* ANY OTHER PARAMETERS */)
+    protected EnemyBaseState(EnemyStateMachine stateMachine, EnemyBaseScript baseClass  /* ANY OTHER PARAMETERS */)
     {
         
         this.StateMachine = stateMachine;
+        this.BaseClass = baseClass;
        
     }
 
@@ -92,6 +93,6 @@ public abstract class EnemyBaseState : State<EnemyStateEnum>
         StateMachine.SetState(state);
     }
     
-
+    protected void MovementFunction() => BaseClass.MovementFunction();
 
 }

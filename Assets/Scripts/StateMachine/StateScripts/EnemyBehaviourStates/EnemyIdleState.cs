@@ -7,7 +7,7 @@ public class EnemyIdleState : EnemyBaseState
 {
     public override EnemyStateEnum Type => EnemyStateEnum.Idle;
 
-    public EnemyIdleState(EnemyStateMachine stateMachine) : base(stateMachine)
+    public EnemyIdleState(EnemyStateMachine stateMachine,EnemyBaseScript baseClass) : base(stateMachine,baseClass)
     {
 
     }
@@ -26,7 +26,7 @@ public class EnemyIdleState : EnemyBaseState
     {
 
         base.Update();
-        
+        MovementFunction();
 
 
     }

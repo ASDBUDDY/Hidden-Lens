@@ -7,7 +7,7 @@ public class EnemyDeadState : EnemyBaseState
 {
     public override EnemyStateEnum Type => EnemyStateEnum.Dead;
 
-    public EnemyDeadState(EnemyStateMachine stateMachine) : base(stateMachine)
+    public EnemyDeadState(EnemyStateMachine stateMachine, EnemyBaseScript baseClass) : base(stateMachine, baseClass)
     {
 
     }

@@ -7,7 +7,7 @@ public class EnemyAggroState : EnemyBaseState
 {
     public override EnemyStateEnum Type => EnemyStateEnum.Aggro;
 
-    public EnemyAggroState(EnemyStateMachine stateMachine) : base(stateMachine)
+    public EnemyAggroState(EnemyStateMachine stateMachine, EnemyBaseScript baseClass) : base(stateMachine, baseClass)
     {
 
     }
