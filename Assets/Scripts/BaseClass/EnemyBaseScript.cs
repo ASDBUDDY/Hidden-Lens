@@ -85,7 +85,20 @@ public class EnemyBaseScript : MonoBehaviour
         }
         else
         {
-            EnemySpriteObj.transform.position = Vector3.MoveTowards(EnemySpriteObj.transform.position, MovementList[movementCounter].transform.position, mainStats.MovementSpeed * TimeManager.Instance.DeltaTime);
+            
+             Vector3 MovementPos = Vector3.MoveTowards(EnemySpriteObj.transform.position, MovementList[movementCounter].transform.position, mainStats.MovementSpeed * TimeManager.Instance.DeltaTime);
+
+            float diffPosition = EnemySpriteObj.transform.position.x - MovementPos.x;
+            if ( diffPosition< 0)
+            {
+                EnemySpriteObj.transform.rotation = Quaternion.Euler(EnemySpriteObj.transform.position.x, 180f, EnemySpriteObj.transform.position.z);
+            }
+            else if(diffPosition > 0)
+            {
+                EnemySpriteObj.transform.rotation = Quaternion.Euler(EnemySpriteObj.transform.position.x, 0f, EnemySpriteObj.transform.position.z);
+            }
+
+                EnemySpriteObj.transform.position = MovementPos;
         }
         
     }
@@ -123,6 +136,17 @@ public class EnemyBaseScript : MonoBehaviour
             {
                 Vector3 newDest = Vector3.MoveTowards(EnemySpriteObj.transform.position, TargetObj.transform.position, mainStats.MovementSpeed * TimeManager.Instance.DeltaTime);
                 newDest.y = EnemySpriteObj.transform.position.y;
+
+                float diffPosition = EnemySpriteObj.transform.position.x - newDest.x;
+                if (diffPosition < 0)
+                {
+                    EnemySpriteObj.transform.rotation = Quaternion.Euler(EnemySpriteObj.transform.position.x, 180f, EnemySpriteObj.transform.position.z);
+                }
+                else if (diffPosition > 0)
+                {
+                    EnemySpriteObj.transform.rotation = Quaternion.Euler(EnemySpriteObj.transform.position.x, 0f, EnemySpriteObj.transform.position.z);
+                }
+
                 EnemySpriteObj.transform.position = newDest;
             }
         }
