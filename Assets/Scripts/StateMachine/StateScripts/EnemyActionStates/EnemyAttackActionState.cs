@@ -14,7 +14,7 @@ public class EnemyAttackActionState : EnemyActionBaseState
     internal override void OnEnter()
     {
         base.OnEnter();
-       
+        CallAttack();
 
     }
     internal override void OnExit()

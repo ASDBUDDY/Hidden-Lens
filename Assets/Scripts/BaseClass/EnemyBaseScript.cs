@@ -7,13 +7,14 @@ public class EnemyBaseScript : MonoBehaviour
     #region Variables
     private EnemyStateMachine behaviourStateMachine;
     private EnemyActionStateMachine actionStateMachine;
+    private EnemyAnimatorScript enemyAnimatorScript;
     [SerializeField]
     private EnemyStats mainStats;
 
     
     public List<GameObject> MovementList;
     public EnemyTypeEnum EnemyType;
-    public GameObject EnemySpriteObj;
+    
 
 
     #region Movement Variables
@@ -34,7 +35,8 @@ public class EnemyBaseScript : MonoBehaviour
     #region Attack Variables
     private float attackTimer = 0f;
     private int attackType = 0;
-
+    public Transform AttackPoint;
+    public Vector2 AttackSize = Vector2.one;
 
 
     #endregion
@@ -46,6 +48,8 @@ public class EnemyBaseScript : MonoBehaviour
     {
         behaviourStateMachine = GetComponent<EnemyStateMachine>();
         actionStateMachine = GetComponent<EnemyActionStateMachine>();
+        enemyAnimatorScript = GetComponent<EnemyAnimatorScript>();
+       
     }
 
 
@@ -69,7 +73,7 @@ public class EnemyBaseScript : MonoBehaviour
         if(movementCounter >= MovementList.Count)
             movementCounter = 0;
 
-        if (Vector3.Distance(EnemySpriteObj.transform.position, MovementList[movementCounter].transform.position) <= 0.1f)
+        if (Vector3.Distance(transform.position, MovementList[movementCounter].transform.position) <= 0.1f)
         {
             if (stopTimer >= mainStats.StopTime)
             {
@@ -82,34 +86,44 @@ public class EnemyBaseScript : MonoBehaviour
                 stopTimer += TimeManager.Instance.DeltaTime;
             }
 
+            enemyAnimatorScript.SetVelocity(0f);
+
         }
         else
         {
             
-             Vector3 MovementPos = Vector3.MoveTowards(EnemySpriteObj.transform.position, MovementList[movementCounter].transform.position, mainStats.MovementSpeed * TimeManager.Instance.DeltaTime);
+             Vector3 MovementPos = Vector3.MoveTowards(transform.position, MovementList[movementCounter].transform.position, mainStats.MovementSpeed * TimeManager.Instance.DeltaTime);
 
-            float diffPosition = EnemySpriteObj.transform.position.x - MovementPos.x;
-            if ( diffPosition< 0)
-            {
-                EnemySpriteObj.transform.rotation = Quaternion.Euler(EnemySpriteObj.transform.position.x, 180f, EnemySpriteObj.transform.position.z);
-            }
-            else if(diffPosition > 0)
-            {
-                EnemySpriteObj.transform.rotation = Quaternion.Euler(EnemySpriteObj.transform.position.x, 0f, EnemySpriteObj.transform.position.z);
-            }
+            float diffPosition = transform.position.x - MovementPos.x;
+            
+            SetRotationAndVelocity(diffPosition);
 
-                EnemySpriteObj.transform.position = MovementPos;
+                transform.position = MovementPos;
         }
         
     }
+    private void SetRotationAndVelocity(float diffPosition)
+    {
+        if (diffPosition < 0)
+        {
+            transform.rotation = Quaternion.Euler(transform.position.x, 180f, transform.position.z);
+        }
+        else if (diffPosition > 0)
+        {
+            transform.rotation = Quaternion.Euler(transform.position.x, 0f, transform.position.z);
+        }
 
+        float velocity =  Mathf.Abs(diffPosition/TimeManager.Instance.DeltaTime);
+
+        enemyAnimatorScript.SetVelocity(velocity);
+    }
     public virtual void DetectionFunction()
     {
         if (detectionTimer > 0.1f)
         {
             detectionTimer = 0f;
 
-            Collider2D ColliderHit = Physics2D.OverlapBox(EnemySpriteObj.transform.position + EnemySpriteObj.transform.right * -1, mainStats.DetectionRange, 0, DetectionLayerMask);
+            Collider2D ColliderHit = Physics2D.OverlapBox(transform.position + transform.right * -1, mainStats.DetectionRange, 0, DetectionLayerMask);
             if (ColliderHit)
             {
                 TargetObj = ColliderHit.gameObject;
@@ -132,41 +146,36 @@ public class EnemyBaseScript : MonoBehaviour
     {
         if (TargetObj != null)
         {
-            if (Vector3.Distance(EnemySpriteObj.transform.position, TargetObj.transform.position) > mainStats.AttackRange[0].x)
+            if (Vector3.Distance(transform.position, TargetObj.transform.position) > mainStats.AttackRange[0].x)
             {
-                Vector3 newDest = Vector3.MoveTowards(EnemySpriteObj.transform.position, TargetObj.transform.position, mainStats.MovementSpeed * TimeManager.Instance.DeltaTime);
-                newDest.y = EnemySpriteObj.transform.position.y;
+                Vector3 newDest = Vector3.MoveTowards(transform.position, TargetObj.transform.position, mainStats.MovementSpeed * TimeManager.Instance.DeltaTime);
+                newDest.y = transform.position.y;
 
-                float diffPosition = EnemySpriteObj.transform.position.x - newDest.x;
-                if (diffPosition < 0)
-                {
-                    EnemySpriteObj.transform.rotation = Quaternion.Euler(EnemySpriteObj.transform.position.x, 180f, EnemySpriteObj.transform.position.z);
-                }
-                else if (diffPosition > 0)
-                {
-                    EnemySpriteObj.transform.rotation = Quaternion.Euler(EnemySpriteObj.transform.position.x, 0f, EnemySpriteObj.transform.position.z);
-                }
+                float diffPosition = transform.position.x - newDest.x;
 
-                EnemySpriteObj.transform.position = newDest;
+                SetRotationAndVelocity(diffPosition);
+
+                transform.position = newDest;
             }
         }
     }
 
     public virtual void CheckForAttack()
     {
-        if (attackTimer <= 0f)
+        if (attackTimer <= 0f && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Attack)
         {
             if (TargetObj != null)
             {
-                float range = Vector3.Distance(EnemySpriteObj.transform.position, TargetObj.transform.position);
+                float range = Vector3.Distance(transform.position, TargetObj.transform.position);
                 for (int i = 0; i < mainStats.AttackRange.Count; i++)
                 {
                     if (range >= mainStats.AttackRange[i].x && range <= mainStats.AttackRange[i].y)
                     {
-                        /*actionStateMachine.SetState(EnemyActionStateEnum.Attack);
-                        attackType = i; break;*/
+                        actionStateMachine.SetState(EnemyActionStateEnum.Attack);
+                        attackType = i; 
                         attackTimer = mainStats.AttackSpeed;
-                        Debug.Log("I'mma attack");
+                        break;
+                        
                     }
                 }
             }
@@ -177,7 +186,31 @@ public class EnemyBaseScript : MonoBehaviour
         }
     }
 
+    public virtual void OnAttack()
+    {
+        Collider2D hitCheck = Physics2D.OverlapBox(AttackPoint.position, AttackSize,0,DetectionLayerMask);
+        if (hitCheck != null)
+        {
+            PlayerMainScript newPlayer = hitCheck.GetComponent<PlayerMainScript>();
+            newPlayer.OnDamage(mainStats.DamageData[attackType]);
+        }
+        attackTimer = mainStats.AttackSpeed;
+    }
     public void SetActionState(EnemyActionStateEnum actionState) => actionStateMachine.SetState(actionState);
+    public void CallInitialAttack() => enemyAnimatorScript.TriggerInitialAttack();
+    public void CallSecondAttack() => enemyAnimatorScript.TriggerSecondAttack();
+    public void CallHurt() => enemyAnimatorScript.TriggerHurt();
+    public void CallDeath() => enemyAnimatorScript.TriggerDeath();
+
+    public void ExecuteAttack()
+    {
+        switch (attackType)
+        {
+            case 0: CallInitialAttack(); break;
+            case 1: CallSecondAttack(); break; 
+            default: CallInitialAttack(); break;
+        }
+    }
     #endregion
 
     #region Debug Methods
@@ -185,7 +218,8 @@ public class EnemyBaseScript : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(EnemySpriteObj.transform.position + EnemySpriteObj.transform.right *-1, mainStats.DetectionRange);
+        Gizmos.DrawWireCube(transform.position + transform.right *-1, mainStats.DetectionRange);
+        Gizmos.DrawWireCube(AttackPoint.position, AttackSize);
     }
     #endregion
 }

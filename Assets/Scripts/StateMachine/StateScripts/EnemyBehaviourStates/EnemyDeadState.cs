@@ -14,7 +14,7 @@ public class EnemyDeadState : EnemyBaseState
     internal override void OnEnter()
     {
         base.OnEnter();
-       
+        CallDeath();
 
     }
     internal override void OnExit()

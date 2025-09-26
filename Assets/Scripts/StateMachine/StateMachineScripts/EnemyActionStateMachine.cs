@@ -101,4 +101,9 @@ public abstract class EnemyActionBaseState : State<EnemyActionStateEnum>
 
     protected void ChaseFunction() => BaseClass.ChaseFunction();
 
+    protected void CallHurt() => BaseClass.CallHurt();
+
+   
+    protected void CallAttack() => BaseClass.ExecuteAttack();
+
 }

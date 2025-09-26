@@ -21,4 +21,11 @@ public class SlimeEnemyScript : EnemyBaseScript
     {
         base.MovementFunction();
     }
+
+    public override void OnAttack()
+    {
+        base.OnAttack();
+
+        SetActionState(EnemyActionStateEnum.Chase);
+    }
 }

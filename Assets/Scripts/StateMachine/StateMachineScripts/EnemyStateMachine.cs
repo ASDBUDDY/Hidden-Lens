@@ -100,5 +100,8 @@ public abstract class EnemyBaseState : State<EnemyStateEnum>
     protected void AttackDetection() => BaseClass.CheckForAttack();
 
     protected void SetActionState(EnemyActionStateEnum actionState) => BaseClass.SetActionState(actionState);
+    protected void CallDeath() => BaseClass.CallDeath();
+
+
 
 }

@@ -14,7 +14,7 @@ public class EnemyHurtActionState : EnemyActionBaseState
     internal override void OnEnter()
     {
         base.OnEnter();
-       
+       CallHurt();
 
     }
     internal override void OnExit()
