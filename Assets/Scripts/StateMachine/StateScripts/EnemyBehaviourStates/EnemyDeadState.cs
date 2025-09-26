@@ -14,6 +14,7 @@ public class EnemyDeadState : EnemyBaseState
     internal override void OnEnter()
     {
         base.OnEnter();
+        SetActionState(EnemyActionStateEnum.Idle);
         CallDeath();
 
     }

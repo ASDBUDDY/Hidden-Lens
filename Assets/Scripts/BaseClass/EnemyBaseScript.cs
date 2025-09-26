@@ -10,6 +10,7 @@ public class EnemyBaseScript : MonoBehaviour
     private EnemyAnimatorScript enemyAnimatorScript;
     [SerializeField]
     private EnemyStats mainStats;
+    private HealthComponent enemyHealth;
 
     
     public List<GameObject> MovementList;
@@ -56,7 +57,7 @@ public class EnemyBaseScript : MonoBehaviour
     // Start is called before the first frame update
    public virtual void Start()
     {
-        
+        enemyHealth = new HealthComponent(mainStats.MaxHealth);
     }
 
     // Update is called once per frame
@@ -148,7 +149,7 @@ public class EnemyBaseScript : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, TargetObj.transform.position) > mainStats.AttackRange[0].x)
             {
-                Vector3 newDest = Vector3.MoveTowards(transform.position, TargetObj.transform.position, mainStats.MovementSpeed * TimeManager.Instance.DeltaTime);
+                Vector3 newDest = Vector3.MoveTowards(transform.position, TargetObj.transform.position, mainStats.MovementSpeed *1.1f * TimeManager.Instance.DeltaTime);
                 newDest.y = transform.position.y;
 
                 float diffPosition = transform.position.x - newDest.x;
@@ -196,6 +197,29 @@ public class EnemyBaseScript : MonoBehaviour
         }
         attackTimer = mainStats.AttackSpeed;
     }
+
+    public virtual void ReturnOnHurt()
+    {
+        if (behaviourStateMachine.CurrentStateType == EnemyStateEnum.Dead)
+            return;
+
+        SetActionState(EnemyActionStateEnum.Chase);
+    }
+
+    public virtual void OnDamage(float damage)
+    {
+        if (enemyHealth.IsDead || TimeManager.Instance.TimePaused)
+            return;
+
+        enemyHealth.DamageHealth(damage);
+
+        if (enemyHealth.IsDead)
+        {
+            behaviourStateMachine.SetState(EnemyStateEnum.Dead);
+        }
+        else
+            SetActionState(EnemyActionStateEnum.Hurt);
+    }
     public void SetActionState(EnemyActionStateEnum actionState) => actionStateMachine.SetState(actionState);
     public void CallInitialAttack() => enemyAnimatorScript.TriggerInitialAttack();
     public void CallSecondAttack() => enemyAnimatorScript.TriggerSecondAttack();
@@ -237,6 +261,7 @@ public enum EnemyTypeEnum
 [System.Serializable]
 public class EnemyStats
 {
+    public float MaxHealth;
     public float MovementSpeed;
     public float AttackSpeed;
     public List<float> DamageData;

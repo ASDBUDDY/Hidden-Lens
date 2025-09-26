@@ -385,7 +385,11 @@ public class PlayerMainScript : MonoBehaviour
         
             foreach (var item in Colliders) {
 
-                Debug.Log(item.gameObject.name);
+                EnemyBaseScript getEnemy = item.GetComponent<EnemyBaseScript>();
+                if (getEnemy != null)
+                {
+                    getEnemy.OnDamage(MainStats.PlayerAttackPower);
+                }
             }
         
     }
