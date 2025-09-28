@@ -122,6 +122,38 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &15236222 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 790242038397989534, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+  m_PrefabInstance: {fileID: 6348317757306258003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &15236225
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15236222}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &93766815
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,6 +317,8 @@ Transform:
   m_Children:
   - {fileID: 681313632}
   - {fileID: 1087539870}
+  - {fileID: 1749708940}
+  - {fileID: 1201224460}
   - {fileID: 1661594303}
   - {fileID: 1604383412}
   m_Father: {fileID: 0}
@@ -312,6 +346,10 @@ MonoBehaviour:
     PlayerAttackSpeed: 1
     PlayerAttackPower: 1
   GroundCheckPos: {fileID: 681313632}
+  LedgeCheckPos: {fileID: 1749708940}
+  ledgeCheckSize: {x: 0.17, y: 0.08}
+  SecondLedgeCheckPos: {fileID: 1201224460}
+  secondLedgeCheckSize: {x: 0.3, y: 0.14}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -332,6 +370,7 @@ MonoBehaviour:
   OriginalYPos: -0.02223387
   CrouchYSize: 0.23
   CrouchYPos: -0.1
+  isGrabbing: 0
 --- !u!114 &93766821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6925,6 +6964,37 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &1201224459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1201224460}
+  m_Layer: 6
+  m_Name: SecondLedgeGrabCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1201224460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201224459}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.108, y: 0.175, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 93766819}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1225661617
 GameObject:
   m_ObjectHideFlags: 0
@@ -8270,6 +8340,37 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &1749708939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1749708940}
+  m_Layer: 6
+  m_Name: LedgeGrabCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1749708940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749708939}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.108, y: -0.039, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 93766819}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1897755645
 GameObject:
   m_ObjectHideFlags: 0
@@ -8448,7 +8549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2596825771318114786, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
       propertyPath: mainStats.MaxHealth
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4785844437675378699, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
       propertyPath: m_Name
@@ -8494,10 +8595,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5815725274440752600, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8e4d58954415bb34e81b8affa43d7a84, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 790242038397989534, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      insertIndex: 7
+      addedObject: {fileID: 15236225}
   m_SourcePrefab: {fileID: 100100000, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

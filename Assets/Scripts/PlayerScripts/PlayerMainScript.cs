@@ -17,6 +17,10 @@ public class PlayerMainScript : MonoBehaviour
     //Ground Layer
     public Transform GroundCheckPos;
     private Vector2 groundCheckSize = new Vector2(0.58f, 0.12f);
+    public Transform LedgeCheckPos;
+    public Vector2 ledgeCheckSize = new Vector2(0.58f, 0.12f);
+    public Transform SecondLedgeCheckPos;
+    public Vector2 secondLedgeCheckSize = new Vector2(0.58f, 0.12f);
     public LayerMask GroundLayerMask;
     //Wall Layers
     public Transform WallCheckPos;
@@ -30,6 +34,7 @@ public class PlayerMainScript : MonoBehaviour
     private Vector2 attackCheckSize = new Vector2(0.58f, 0.12f);
     public LayerMask AttackLayerMask;
 
+    
 
     [Header("Gravity Params")]
     public float BaseGravity;
@@ -72,6 +77,10 @@ public class PlayerMainScript : MonoBehaviour
 
     //Crouch variables
     private bool isCrouching = false;
+
+    //Grabbing variables
+    [SerializeField]
+    private bool isGrabbing = false;
     #endregion
 
     #region Attack variables
@@ -146,7 +155,7 @@ public class PlayerMainScript : MonoBehaviour
     {
         if (playerRigidbody != null)
         {
-            if (!isAttacking)
+            if (!isAttacking && !isGrabbing)
             {
                 
                 if (horizontalMovement < 0f)
@@ -166,6 +175,7 @@ public class PlayerMainScript : MonoBehaviour
             
 
             GroundCheck();
+            ProcessLedgeGrab();
             ProcessWallSlide();
             ProcessWallJump();
             if(IsGrounded() && TimeManager.Instance.TimeInSeconds - timeLastPressedJump <= jumpBufferInterval)
@@ -180,7 +190,7 @@ public class PlayerMainScript : MonoBehaviour
 
     private void GravityFunctionality()
     {
-        if (playerRigidbody != null)
+        if (playerRigidbody != null && !isGrabbing)
         {
             if (playerRigidbody.velocity.y < -MainStats.PlayerJumpHangTime && !isWallSliding)
             {
@@ -243,6 +253,63 @@ public class PlayerMainScript : MonoBehaviour
     {
         isWallJumping = false;
     }
+
+    private void ProcessLedgeGrab()
+    {
+        if (isGrabbing)
+        {
+            
+
+            if (horizontalMovement > 0f)
+            {
+                ResetGrab(transform.rotation.eulerAngles.y == 0f,true);
+            }
+            else if (horizontalMovement < 0f)
+            {
+                ResetGrab(transform.rotation.eulerAngles.y == 180f,false);
+            }
+            
+        }
+        else
+        {
+            if (isWallSliding)
+                return;
+
+            if (Physics2D.OverlapBox(LedgeCheckPos.position, ledgeCheckSize, 0, GroundLayerMask))
+            {
+                if (Physics2D.OverlapBox(SecondLedgeCheckPos.position, secondLedgeCheckSize, 0, GroundLayerMask))
+                {
+                    return;
+                }
+                else
+                {
+                    SetupGrab();
+                }
+            }
+        }
+    }
+
+    
+
+    private void SetupGrab()
+    {
+        isGrabbing = true;
+        playerRigidbody.velocity = Vector3.zero;
+        playerRigidbody.gravityScale = 0f;
+        playerAnimatorScript.SetGrab(isGrabbing);
+    }
+    private void ResetGrab(bool moveUp = false, bool directionLeft =false)
+    {
+        isGrabbing = false;
+        playerAnimatorScript.SetGrab(isGrabbing);
+        if (moveUp) {
+            if(directionLeft)
+            transform.position = new Vector2(transform.position.x + (0.15f * transform.localScale.x), transform.position.y + 1.8f);
+            else
+                transform.position = new Vector2(transform.position.x - (0.15f * transform.localScale.x), transform.position.y + 1.8f);
+        }
+        playerRigidbody.gravityScale = BaseGravity;
+    }
     private void GroundCheck()
     {
         if (IsGrounded())
@@ -299,6 +366,9 @@ public class PlayerMainScript : MonoBehaviour
             return;
         timeLastPressedJump = TimeManager.Instance.TimeInSeconds;
          isHalfJump = context.performed ? false : context.canceled ? true : false;
+
+        if (isGrabbing)
+            return;
 
         if (TimeManager.Instance.TimeInSeconds - timeSinceLastJump > 0.5f)
         {
@@ -469,6 +539,9 @@ public class PlayerMainScript : MonoBehaviour
         Gizmos.DrawWireCube(GroundCheckPos.position, groundCheckSize);
         Gizmos.DrawWireCube(WallCheckPos.position, wallCheckSize);
         Gizmos.DrawWireCube(AttackCheckPos.position, attackCheckSize);
+        Gizmos.DrawWireCube(LedgeCheckPos.position, ledgeCheckSize);
+        Gizmos.DrawWireCube(SecondLedgeCheckPos.position, secondLedgeCheckSize);
+        //Gizmos.DrawWireCube(new Vector2(transform.position.x + (0.15f * transform.localScale.x), transform.position.y + 2f), ledgeCheckSize);
     }
 }
 

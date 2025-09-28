@@ -24,6 +24,8 @@ public class PlayerAnimatorScript : MonoBehaviour
     private int hurt = 0;
     private static string isDead = "IsDead";
     private int dead = 0;
+    private static string isGrabbing = "IsGrabbing";
+    private int grab = 0;
 
     #endregion
     private void Awake()
@@ -37,6 +39,7 @@ public class PlayerAnimatorScript : MonoBehaviour
         crouch = Animator.StringToHash(isCrouching);
         hurt = Animator.StringToHash(isHurt);
         dead = Animator.StringToHash(isDead);
+        grab = Animator.StringToHash(isGrabbing);
     }
 
     public void SetVelocity(float velocityX, float velocityY)
@@ -67,9 +70,14 @@ public class PlayerAnimatorScript : MonoBehaviour
         if (playerAnimator.GetBool(crouch) != flag)
             playerAnimator.SetBool(crouch, flag);
     }
+    public void SetGrab(bool flag = true)
+    {
+        if (playerAnimator.GetBool(grab) != flag)
+            playerAnimator.SetBool(grab, flag);
+    }
 
-    public void CallHurt() => playerAnimator.SetTrigger(isHurt);
-    public void CallDeath() => playerAnimator.SetTrigger(isDead);
+    public void CallHurt() => playerAnimator.SetTrigger(hurt);
+    public void CallDeath() => playerAnimator.SetTrigger(dead);
 
 
     public void PauseAnimator(bool flag = true) => playerAnimator.enabled = !flag;
