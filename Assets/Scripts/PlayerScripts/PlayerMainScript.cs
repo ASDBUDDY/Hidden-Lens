@@ -47,6 +47,8 @@ public class PlayerMainScript : MonoBehaviour
     public float CrouchYSize = 0.23f;
     public float CrouchYPos = -0.1f;
 
+    
+
     private Vector2 pauseVelocity = Vector2.zero;
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerRigidbody;
@@ -69,6 +71,12 @@ public class PlayerMainScript : MonoBehaviour
         private bool isWallJumping = false;
         private bool isJumping = false;
         private float wallJumpTimer = 0f;
+
+
+    //Dash variables
+    private bool canDash = true;
+    private bool isDashing = false;
+    private Coroutine DashRoutine;
 
     //Sliding variables
     private bool isWallSliding = false;
@@ -155,7 +163,7 @@ public class PlayerMainScript : MonoBehaviour
     {
         if (playerRigidbody != null)
         {
-            if (!isAttacking && !isGrabbing)
+            if (!isAttacking && !isGrabbing && !isDashing)
             {
                 
 
@@ -193,7 +201,7 @@ public class PlayerMainScript : MonoBehaviour
 
     private void GravityFunctionality()
     {
-        if (playerRigidbody != null && !isGrabbing)
+        if (playerRigidbody != null && !isGrabbing && !isDashing)
         {
             if (playerRigidbody.velocity.y < -MainStats.PlayerJumpHangTime && !isWallSliding)
             {
@@ -292,8 +300,38 @@ public class PlayerMainScript : MonoBehaviour
         }
     }
 
-    
+    public void ExecuteDash(InputAction.CallbackContext context)
+    {
+        if (context.performed && canDash)
+        {
 
+            DashRoutine = StartCoroutine(DashCoroutine());
+        }
+    }
+
+    private IEnumerator DashCoroutine()
+    {
+        canDash = false;
+        isDashing = true;
+
+        playerRigidbody.gravityScale = 0f;
+
+        playerAnimatorScript.SetDash();
+
+        float dashDirection = transform.rotation.eulerAngles.y == 180? -1f :1f;
+
+        playerRigidbody.velocity = new Vector2(dashDirection * MainStats.PlayerDashSpeed, 0f);
+
+        yield return new WaitForSeconds(MainStats.PlayerDashDuration);
+
+        playerRigidbody.velocity = new Vector2(0f, playerRigidbody.velocity.y);
+        playerRigidbody.gravityScale = BaseGravity;
+        isDashing = false;
+        playerAnimatorScript.SetDash(false);
+
+        yield return new WaitForSeconds(MainStats.PlayerDashCooldown);
+            canDash = true;
+    }
     private void SetupGrab()
     {
         isGrabbing = true;
@@ -329,6 +367,7 @@ public class PlayerMainScript : MonoBehaviour
             isJumping = false;
         }
     }
+
     public void CrouchFunction(InputAction.CallbackContext context)
     {
         if (playerHealth.IsDead || TimeManager.Instance.TimePaused)
@@ -379,7 +418,7 @@ public class PlayerMainScript : MonoBehaviour
         if (isGrabbing)
             return;
 
-        if (TimeManager.Instance.TimeInSeconds - timeSinceLastJump > 0.5f)
+        if (TimeManager.Instance.TimeInSeconds - timeSinceLastJump > 0.5f && !isDashing)
         {
             if (IsGrounded() || TimeManager.Instance.TimeInSeconds - lastTimeOnGround <= coyoteTime)
             {
@@ -570,5 +609,8 @@ public class PlayerStats
     public float PlayerJumpHangTime;
     public float PlayerAttackSpeed;
     public float PlayerAttackPower;
+    public float PlayerDashSpeed;
+    public float PlayerDashDuration;
+    public float PlayerDashCooldown;
 
 }

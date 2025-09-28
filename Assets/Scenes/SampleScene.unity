@@ -345,6 +345,9 @@ MonoBehaviour:
     PlayerJumpHangTime: 0.1
     PlayerAttackSpeed: 1
     PlayerAttackPower: 1
+    PlayerDashSpeed: 20
+    PlayerDashDuration: 0.15
+    PlayerDashCooldown: 1
   GroundCheckPos: {fileID: 681313632}
   LedgeCheckPos: {fileID: 1749708940}
   ledgeCheckSize: {x: 0.15, y: 0.08}
@@ -520,6 +523,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6872d196-5c3d-422b-a10b-edd53f4c61b8
     m_ActionName: Player/Pause[/Keyboard/p,/XInputControllerWindows/select,/XInputControllerWindows1/select]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 93766820}
+        m_TargetAssemblyTypeName: PlayerMainScript, Assembly-CSharp
+        m_MethodName: ExecuteDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b934cb18-29a5-456a-8f22-9ebba93d9188
+    m_ActionName: Player/Dash[/Keyboard/leftShift,/XInputControllerWindows/rightShoulder,/XInputControllerWindows1/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -26,6 +26,8 @@ public class PlayerAnimatorScript : MonoBehaviour
     private int dead = 0;
     private static string isGrabbing = "IsGrabbing";
     private int grab = 0;
+    private static string isDashing = "IsDashing";
+    private int dash = 0;
 
     #endregion
     private void Awake()
@@ -40,6 +42,7 @@ public class PlayerAnimatorScript : MonoBehaviour
         hurt = Animator.StringToHash(isHurt);
         dead = Animator.StringToHash(isDead);
         grab = Animator.StringToHash(isGrabbing);
+        dash = Animator.StringToHash(isDashing);
     }
 
     public void SetVelocity(float velocityX, float velocityY)
@@ -74,6 +77,12 @@ public class PlayerAnimatorScript : MonoBehaviour
     {
         if (playerAnimator.GetBool(grab) != flag)
             playerAnimator.SetBool(grab, flag);
+    }
+
+    public void SetDash(bool flag = true)
+    {
+        if (playerAnimator.GetBool(dash) != flag)
+            playerAnimator.SetBool(dash, flag);
     }
 
     public void CallHurt() => playerAnimator.SetTrigger(hurt);
