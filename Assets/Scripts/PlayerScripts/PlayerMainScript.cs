@@ -158,6 +158,7 @@ public class PlayerMainScript : MonoBehaviour
             if (!isAttacking && !isGrabbing)
             {
                 
+
                 if (horizontalMovement < 0f)
                 {
                     transform.rotation = Quaternion.Euler(transform.position.x, 180, transform.position.z);
@@ -167,6 +168,8 @@ public class PlayerMainScript : MonoBehaviour
                 {
                     transform.rotation = Quaternion.Euler(transform.position.x, 0, transform.position.z);
                 }
+
+                
 
                 if (!isCrouching)
                     playerRigidbody.velocity = Vector2.SmoothDamp(playerRigidbody.velocity, new Vector2(horizontalMovement * MainStats.PlayerSpeed * (IsGrounded() ? 1f : 0.8f), playerRigidbody.velocity.y), ref velocityRef, movementSmoothTime * (isWallJumping ? 2f : 1f));
@@ -307,8 +310,14 @@ public class PlayerMainScript : MonoBehaviour
             transform.position = new Vector2(transform.position.x + (0.15f * transform.localScale.x), transform.position.y + 1.8f);
             else
                 transform.position = new Vector2(transform.position.x - (0.15f * transform.localScale.x), transform.position.y + 1.8f);
+
+            playerAnimatorScript.SetJump(false);
         }
-        playerRigidbody.gravityScale = BaseGravity;
+        else
+        {
+            playerAnimatorScript.SetJump(true);
+        }
+            playerRigidbody.gravityScale = BaseGravity;
     }
     private void GroundCheck()
     {
@@ -461,7 +470,11 @@ public class PlayerMainScript : MonoBehaviour
                     getEnemy.OnDamage(MainStats.PlayerAttackPower);
                 }
             }
-        
+        /*if (horizontalMovement != 0f)
+        {
+            ResetAttack();
+        }*/
+
     }
 
     #endregion
