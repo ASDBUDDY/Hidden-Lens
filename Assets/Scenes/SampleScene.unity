@@ -347,7 +347,7 @@ MonoBehaviour:
     PlayerAttackPower: 1
   GroundCheckPos: {fileID: 681313632}
   LedgeCheckPos: {fileID: 1749708940}
-  ledgeCheckSize: {x: 0.17, y: 0.08}
+  ledgeCheckSize: {x: 0.15, y: 0.08}
   SecondLedgeCheckPos: {fileID: 1201224460}
   secondLedgeCheckSize: {x: 0.3, y: 0.14}
   GroundLayerMask:
