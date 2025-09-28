@@ -47,7 +47,8 @@ public class PlayerMainScript : MonoBehaviour
     public float CrouchYSize = 0.23f;
     public float CrouchYPos = -0.1f;
 
-    
+    [Header("Dash Trail")]
+    public DashTrail DashSystem;
 
     private Vector2 pauseVelocity = Vector2.zero;
     private BoxCollider2D playerCollider;
@@ -315,6 +316,7 @@ public class PlayerMainScript : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        DashSystem.SetEnabled(true);
 
         playerRigidbody.gravityScale = 0f;
 
@@ -330,6 +332,7 @@ public class PlayerMainScript : MonoBehaviour
         playerRigidbody.gravityScale = BaseGravity;
         isDashing = false;
         playerAnimatorScript.SetDash(false);
+        DashSystem.SetEnabled(false);
 
         yield return new WaitForSeconds(MainStats.PlayerDashCooldown);
             canDash = true;
