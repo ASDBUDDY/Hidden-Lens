@@ -302,8 +302,10 @@ public class PlayerMainScript : MonoBehaviour
 
     public void ExecuteDash(InputAction.CallbackContext context)
     {
-        if (context.performed && canDash)
+        if (context.performed && canDash && !isGrabbing && !isWallSliding)
         {
+            if(isAttacking)
+                ResetAttack();
 
             DashRoutine = StartCoroutine(DashCoroutine());
         }
