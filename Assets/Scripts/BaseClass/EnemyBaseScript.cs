@@ -210,7 +210,7 @@ public class EnemyBaseScript : MonoBehaviour
     {
         if (enemyHealth.IsDead || TimeManager.Instance.TimePaused)
             return;
-
+        Debug.Log($"I got hit for {damage}");
         enemyHealth.DamageHealth(damage);
 
         if (enemyHealth.IsDead)

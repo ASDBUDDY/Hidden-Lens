@@ -1858,7 +1858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LeadingSprite: {fileID: 93766818}
-  TrailSegments: 5
+  TrailSegments: 8
   TrailTime: 0.2
   TrailObject: {fileID: 7361381445890220421, guid: 5f425c40ca2e87c419fd0b5fe593df6f, type: 3}
 --- !u!1 &1020118839

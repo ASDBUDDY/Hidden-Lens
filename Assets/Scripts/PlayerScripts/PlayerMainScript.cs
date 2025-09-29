@@ -308,6 +308,10 @@ public class PlayerMainScript : MonoBehaviour
             if(isAttacking)
                 ResetAttack();
 
+            if (DashRoutine != null)
+            {
+                StopCoroutine(DashRoutine);
+            }
             DashRoutine = StartCoroutine(DashCoroutine());
         }
     }
@@ -480,6 +484,15 @@ public class PlayerMainScript : MonoBehaviour
 
         if (attackTimer <= 0f)
         {
+            if(!IsGrounded())
+            {
+                if(DashRoutine!=null)
+                {
+                    StopCoroutine(DashRoutine);
+                }
+                DashRoutine = StartCoroutine(DashCoroutine());
+            } 
+            
             playerAnimatorScript.SetAttack(true);
             attackTimer = MainStats.PlayerAttackSpeed;
             isAttacking = true;
@@ -502,8 +515,11 @@ public class PlayerMainScript : MonoBehaviour
         playerAnimatorScript.SetAttack(false);
     }
 
-    public void ExecuteAttack()
+    public void ExecuteAttack(float multiplier =1f)
     {
+        if (multiplier == 0f)
+            multiplier = 1f;
+
         Collider2D[] Colliders = Physics2D.OverlapBoxAll(AttackCheckPos.position, attackCheckSize, 0, AttackLayerMask);
         
             foreach (var item in Colliders) {
@@ -511,7 +527,7 @@ public class PlayerMainScript : MonoBehaviour
                 EnemyBaseScript getEnemy = item.GetComponent<EnemyBaseScript>();
                 if (getEnemy != null)
                 {
-                    getEnemy.OnDamage(MainStats.PlayerAttackPower);
+                    getEnemy.OnDamage(MainStats.PlayerAttackPower * multiplier);
                 }
             }
         /*if (horizontalMovement != 0f)
