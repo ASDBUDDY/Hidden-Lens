@@ -32,8 +32,8 @@ public class EnemyAnimatorScript : MonoBehaviour
     }
 
 
-    
 
+    public void PauseAnimator(bool flag = true) => enemyAnimator.enabled = !flag;
     public void SetVelocity(float newVelocity) => enemyAnimator.SetFloat(velocity, newVelocity);
     public void TriggerHurt() => enemyAnimator.SetTrigger(hurt);
     public void TriggerInitialAttack() => enemyAnimator.SetTrigger(attack);

@@ -217,6 +217,12 @@ public class PlayerMainScript : MonoBehaviour
             {
                 playerRigidbody.gravityScale = BaseGravity;
             }
+
+            if (TimeManager.Instance.TimePaused)
+            {
+                playerRigidbody.velocity = Vector2.zero;
+                playerRigidbody.gravityScale = 0f;
+            }
         }
     }
     private void ProcessWallSlide()
@@ -330,15 +336,15 @@ public class PlayerMainScript : MonoBehaviour
 
         playerRigidbody.velocity = new Vector2(dashDirection * MainStats.PlayerDashSpeed, 0f);
 
-        yield return new WaitForSeconds(MainStats.PlayerDashDuration);
+        yield return new CustomWaitForSeconds(MainStats.PlayerDashDuration);
 
         playerRigidbody.velocity = new Vector2(0f, playerRigidbody.velocity.y);
-        playerRigidbody.gravityScale = BaseGravity;
+        playerRigidbody.gravityScale = TimeManager.Instance.TimePaused ? 0f:BaseGravity;
         isDashing = false;
         playerAnimatorScript.SetDash(false);
         DashSystem.SetEnabled(false);
 
-        yield return new WaitForSeconds(MainStats.PlayerDashCooldown);
+        yield return new CustomWaitForSeconds(MainStats.PlayerDashCooldown);
             canDash = true;
     }
     private void SetupGrab()

@@ -205,12 +205,19 @@ public class EnemyBaseScript : MonoBehaviour
 
         SetActionState(EnemyActionStateEnum.Chase);
     }
+    public virtual void OnPauseCall(bool flag =false)
+    {
+   
+        flag = TimeManager.Instance.TimePaused;
 
+
+        enemyAnimatorScript.PauseAnimator(flag);
+    }
     public virtual void OnDamage(float damage)
     {
         if (enemyHealth.IsDead || TimeManager.Instance.TimePaused)
             return;
-        Debug.Log($"I got hit for {damage}");
+        
         enemyHealth.DamageHealth(damage);
 
         if (enemyHealth.IsDead)
