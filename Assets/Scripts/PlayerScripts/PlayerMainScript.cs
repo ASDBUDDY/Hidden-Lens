@@ -584,6 +584,13 @@ public class PlayerMainScript : MonoBehaviour
 
     #region Other Functions
 
+    public void ToggleLens(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            LensManager.Instance.ToggleLens();
+        }
+    }
 
     public void PauseFunction(InputAction.CallbackContext context)
     {

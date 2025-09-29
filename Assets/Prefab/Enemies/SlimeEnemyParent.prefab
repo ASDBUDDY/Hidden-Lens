@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7811395913987233372}
   - component: {fileID: 4121058768168176322}
   - component: {fileID: 5230537231008137015}
+  - component: {fileID: 4095997391687545902}
   m_Layer: 8
   m_Name: EnemyObj
   m_TagString: Untagged
@@ -136,6 +137,8 @@ MonoBehaviour:
     DetectionRange: {x: 7, y: 8}
     AttackRange:
     - {x: 0.1, y: 1}
+  enemyAuraMaterial: {fileID: 2100000, guid: 8e4d58954415bb34e81b8affa43d7a84, type: 2}
+  enemyLightMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   MovementList:
   - {fileID: 4321871834610516604}
   - {fileID: 4396758996137187237}
@@ -256,6 +259,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.24074629}
   m_EdgeRadius: 0
+--- !u!114 &4095997391687545902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790242038397989534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763f9745df55ae84dae33463107dfa3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventChannel: {fileID: 11400000, guid: 89e9720a945fd04499860ea82692493b, type: 2}
+  onEventRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2596825771318114786}
+        m_TargetAssemblyTypeName: EnemyBaseScript, Assembly-CSharp
+        m_MethodName: OnPauseCall
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1410801228588640498
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,10 +8,14 @@ public class EnemyBaseScript : MonoBehaviour
     private EnemyStateMachine behaviourStateMachine;
     private EnemyActionStateMachine actionStateMachine;
     private EnemyAnimatorScript enemyAnimatorScript;
+    private SpriteRenderer enemySprite;
     [SerializeField]
     private EnemyStats mainStats;
     private HealthComponent enemyHealth;
-
+    [SerializeField]
+    private Material enemyAuraMaterial;
+    [SerializeField]
+    private Material enemyLightMaterial;
     
     public List<GameObject> MovementList;
     public EnemyTypeEnum EnemyType;
@@ -50,7 +54,7 @@ public class EnemyBaseScript : MonoBehaviour
         behaviourStateMachine = GetComponent<EnemyStateMachine>();
         actionStateMachine = GetComponent<EnemyActionStateMachine>();
         enemyAnimatorScript = GetComponent<EnemyAnimatorScript>();
-       
+        enemySprite = GetComponent<SpriteRenderer>();
     }
 
 
@@ -69,6 +73,8 @@ public class EnemyBaseScript : MonoBehaviour
     #endregion
 
     #region Functionality Body
+
+    public bool IsDead => enemyHealth.IsDead;
     public virtual void MovementFunction()
     {
         if(movementCounter >= MovementList.Count)
@@ -241,6 +247,11 @@ public class EnemyBaseScript : MonoBehaviour
             case 1: CallSecondAttack(); break; 
             default: CallInitialAttack(); break;
         }
+    }
+
+    public void SwapMaterial(bool flag = false)
+    {
+        enemySprite.material = flag ? enemyLightMaterial : enemyAuraMaterial;
     }
     #endregion
 
