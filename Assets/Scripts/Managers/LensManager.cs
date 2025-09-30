@@ -31,7 +31,8 @@ public class LensManager : MonoBehaviour
     }
     private void Start()
     {
-        LensData = new LensStats(GaugeSize * GaugeCount, GaugeSize);
+        UpdateGauge(GaugeCount);
+        HPDialUI.Instance.SetupManaSlider(GaugeCount);
     }
 
     private void Update()
@@ -44,16 +45,24 @@ public class LensManager : MonoBehaviour
                 lensTimer = 0f;
         }
     }
+
+    public void UpdateGauge(int gaugeCount)
+    {
+        LensData = new LensStats(GaugeSize * gaugeCount, GaugeSize);
+    }
     private IEnumerator DepleteLens()
     {
-        yield return new CustomWaitForSeconds(1f);
+        
 
         while (isLensActive)
         {
             LensData.DepleteMana(LensData.VisibilityDepletion);
+            
 
-            if(LensData.CurrentLensMana <=0)
+            if (LensData.CurrentLensMana <=0)
                 ToggleLens();
+
+            HPDialUI.Instance.UpdateSlider(LensData.CurrentLensMana, false);
 
             yield return new CustomWaitForSeconds(1f);
         }
@@ -79,6 +88,8 @@ public class LensManager : MonoBehaviour
         }
         else
         {
+           
+
             isLensActive = false;
             OnLensToggle();
 
@@ -88,6 +99,7 @@ public class LensManager : MonoBehaviour
             lensTimer = lensCooldown;
         }
 
+        HPDialUI.Instance.ToggleMainLens(isLensActive);
         return true;
     }
 

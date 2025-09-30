@@ -112,6 +112,7 @@ public class PlayerMainScript : MonoBehaviour
     void Start()
     {
         playerHealth = new HealthComponent(30f);
+        HPDialUI.Instance.SetupHealth(playerHealth.MaxHealth);
     }
 
     // Update is called once per frame
@@ -565,6 +566,8 @@ public class PlayerMainScript : MonoBehaviour
             CallHurt();
 
         playerRigidbody.velocity = Vector3.zero;
+
+        HPDialUI.Instance.UpdateSlider(playerHealth.CurrentHealth, true);
     }
 
     public void CallHurt()
