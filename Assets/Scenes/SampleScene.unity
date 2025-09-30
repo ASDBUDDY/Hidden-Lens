@@ -7810,7 +7810,7 @@ MonoBehaviour:
   - {fileID: 15236229}
   - {fileID: 617390865}
   GaugeSize: 15
-  GaugeCount: 5
+  GaugeCount: 3
 --- !u!4 &1349720707
 Transform:
   m_ObjectHideFlags: 0
