@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class EnemyBaseScript : MonoBehaviour
@@ -10,7 +11,7 @@ public class EnemyBaseScript : MonoBehaviour
     private EnemyAnimatorScript enemyAnimatorScript;
     private SpriteRenderer enemySprite;
     [SerializeField]
-    private EnemyStats mainStats;
+    protected EnemyStats mainStats;
     private HealthComponent enemyHealth;
     [SerializeField]
     private Material enemyAuraMaterial;
@@ -19,11 +20,13 @@ public class EnemyBaseScript : MonoBehaviour
     
     public List<GameObject> MovementList;
     public EnemyTypeEnum EnemyType;
-    
+
 
 
     #region Movement Variables
+    [SerializeField]
     private float stopTimer = 0f;
+    [SerializeField]
     private int movementCounter = 0;
 
 
@@ -38,18 +41,22 @@ public class EnemyBaseScript : MonoBehaviour
     #endregion
 
     #region Attack Variables
-    private float attackTimer = 0f;
-    private int attackType = 0;
+    protected float attackTimer = 0f;
+    protected int attackType = 0;
     public Transform AttackPoint;
     public Vector2 AttackSize = Vector2.one;
 
-
+    [Header("For DEBUG")]
+    [SerializeField]
+    string CurrentBehaviourState = "";
+    [SerializeField]
+    string CurrentActionState = "";
     #endregion
 
     #endregion
 
     #region Base Methods
-    private void Awake()
+    public virtual void Awake()
     {
         behaviourStateMachine = GetComponent<EnemyStateMachine>();
         actionStateMachine = GetComponent<EnemyActionStateMachine>();
@@ -69,6 +76,7 @@ public class EnemyBaseScript : MonoBehaviour
     {
         behaviourStateMachine.CallStateUpdate();
         actionStateMachine.CallStateUpdate();
+        StateUpdate();
     }
     #endregion
 
@@ -80,7 +88,7 @@ public class EnemyBaseScript : MonoBehaviour
         if(movementCounter >= MovementList.Count)
             movementCounter = 0;
 
-        if (Vector3.Distance(transform.position, MovementList[movementCounter].transform.position) <= 0.1f)
+        if ( Mathf.Abs(transform.position.x - MovementList[movementCounter].transform.position.x) <= 0.1f)
         {
             if (stopTimer >= mainStats.StopTime)
             {
@@ -104,6 +112,8 @@ public class EnemyBaseScript : MonoBehaviour
             float diffPosition = transform.position.x - MovementPos.x;
             
             SetRotationAndVelocity(diffPosition);
+
+            MovementPos.y = transform.position.y;
 
                 transform.position = MovementPos;
         }
@@ -130,7 +140,7 @@ public class EnemyBaseScript : MonoBehaviour
         {
             detectionTimer = 0f;
 
-            Collider2D ColliderHit = Physics2D.OverlapBox(transform.position + transform.right * -1, mainStats.DetectionRange, 0, DetectionLayerMask);
+            Collider2D ColliderHit = Physics2D.OverlapBox(transform.position + transform.right * -1f, mainStats.DetectionRange, 0, DetectionLayerMask);
             if (ColliderHit)
             {
                 TargetObj = ColliderHit.gameObject;
@@ -153,14 +163,14 @@ public class EnemyBaseScript : MonoBehaviour
     {
         if (TargetObj != null)
         {
-            if (Vector3.Distance(transform.position, TargetObj.transform.position) > mainStats.AttackRange[0].x)
+            if (Mathf.Abs(transform.position.x - TargetObj.transform.position.x) > mainStats.AttackRange[0].x)
             {
-                Vector3 newDest = Vector3.MoveTowards(transform.position, TargetObj.transform.position, mainStats.MovementSpeed *1.1f * TimeManager.Instance.DeltaTime);
-                newDest.y = transform.position.y;
+                Vector3 newDest = Vector3.MoveTowards(transform.position, TargetObj.transform.position, mainStats.MovementSpeed * 1.1f * TimeManager.Instance.DeltaTime);
 
                 float diffPosition = transform.position.x - newDest.x;
 
                 SetRotationAndVelocity(diffPosition);
+                newDest.y = transform.position.y;
 
                 transform.position = newDest;
             }
@@ -202,6 +212,8 @@ public class EnemyBaseScript : MonoBehaviour
             newPlayer.OnDamage(mainStats.DamageData[attackType]);
         }
         attackTimer = mainStats.AttackSpeed;
+
+        Invoke(nameof(ReturnToChase), 1f);
     }
 
     public virtual void ReturnOnHurt()
@@ -233,6 +245,7 @@ public class EnemyBaseScript : MonoBehaviour
         else
             SetActionState(EnemyActionStateEnum.Hurt);
     }
+    protected void ReturnToChase() => SetActionState(EnemyActionStateEnum.Chase);
     public void SetActionState(EnemyActionStateEnum actionState) => actionStateMachine.SetState(actionState);
     public void CallInitialAttack() => enemyAnimatorScript.TriggerInitialAttack();
     public void CallSecondAttack() => enemyAnimatorScript.TriggerSecondAttack();
@@ -247,6 +260,8 @@ public class EnemyBaseScript : MonoBehaviour
             case 1: CallSecondAttack(); break; 
             default: CallInitialAttack(); break;
         }
+
+        enemyAnimatorScript.SetVelocity(0f);
     }
 
     public void SwapMaterial(bool flag = false)
@@ -257,11 +272,17 @@ public class EnemyBaseScript : MonoBehaviour
 
     #region Debug Methods
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position + transform.right *-1, mainStats.DetectionRange);
+        Gizmos.DrawWireCube(transform.position + transform.right*-1f, mainStats.DetectionRange);
         Gizmos.DrawWireCube(AttackPoint.position, AttackSize);
+    }
+
+    private void StateUpdate()
+    {
+        CurrentBehaviourState = behaviourStateMachine.CurrentStateType.ToString();
+        CurrentActionState = actionStateMachine.CurrentStateType.ToString();
     }
     #endregion
 }
