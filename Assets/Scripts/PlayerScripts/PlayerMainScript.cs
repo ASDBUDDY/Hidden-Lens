@@ -491,15 +491,18 @@ public class PlayerMainScript : MonoBehaviour
 
         if (attackTimer <= 0f)
         {
-            if(!IsGrounded())
+            playerRigidbody.velocity = playerRigidbody.velocity * 0.5f;
+
+            if (!IsGrounded())
             {
                 if(DashRoutine!=null)
                 {
                     StopCoroutine(DashRoutine);
                 }
                 DashRoutine = StartCoroutine(DashCoroutine());
-            } 
-            
+            }
+           
+
             playerAnimatorScript.SetAttack(true);
             attackTimer = MainStats.PlayerAttackSpeed;
             isAttacking = true;
