@@ -6,17 +6,17 @@ using UnityEngine;
 public class EnemyBaseScript : MonoBehaviour
 {
     #region Variables
-    private EnemyStateMachine behaviourStateMachine;
-    private EnemyActionStateMachine actionStateMachine;
-    private EnemyAnimatorScript enemyAnimatorScript;
-    private SpriteRenderer enemySprite;
+    protected EnemyStateMachine behaviourStateMachine;
+    protected EnemyActionStateMachine actionStateMachine;
+    protected EnemyAnimatorScript enemyAnimatorScript;
+    protected SpriteRenderer enemySprite;
     [SerializeField]
     protected EnemyStats mainStats;
     protected HealthComponent enemyHealth;
     [SerializeField]
-    private Material enemyAuraMaterial;
+    protected Material enemyAuraMaterial;
     [SerializeField]
-    private Material enemyLightMaterial;
+    protected Material enemyLightMaterial;
     
     public List<GameObject> MovementList;
     public EnemyTypeEnum EnemyType;
@@ -24,17 +24,17 @@ public class EnemyBaseScript : MonoBehaviour
 
 
     #region Movement Variables
-    private float stopTimer = 0f;
-    private int movementCounter = 0;
+    protected float stopTimer = 0f;
+    protected int movementCounter = 0;
 
 
     #endregion
 
     #region Detection Variables
     public LayerMask DetectionLayerMask;
-    private float detectionTimer = 0f;
+    protected float detectionTimer = 0f;
 
-    private GameObject TargetObj;
+    protected GameObject TargetObj;
 
     #endregion
 
@@ -117,7 +117,7 @@ public class EnemyBaseScript : MonoBehaviour
         }
         
     }
-    private void SetRotationAndVelocity(float diffPosition)
+    protected void SetRotationAndVelocity(float diffPosition)
     {
         if (diffPosition < 0)
         {
@@ -231,7 +231,7 @@ public class EnemyBaseScript : MonoBehaviour
     }
     public virtual void OnDamage(float damage)
     {
-        if (enemyHealth.IsDead || TimeManager.Instance.TimePaused)
+        if (enemyHealth.IsDead || TimeManager.Instance.TimePaused || actionStateMachine.CurrentStateType == EnemyActionStateEnum.Block)
             return;
         
         enemyHealth.DamageHealth(damage);
@@ -266,6 +266,12 @@ public class EnemyBaseScript : MonoBehaviour
     {
         enemySprite.material = flag ? enemyLightMaterial : enemyAuraMaterial;
     }
+
+    public virtual void ToggleBlock(bool flag = true)
+    {
+
+    }
+
     #endregion
 
     #region Debug Methods

@@ -103,7 +103,7 @@ public abstract class EnemyActionBaseState : State<EnemyActionStateEnum>
 
     protected void CallHurt() => BaseClass.CallHurt();
 
-   
+   protected void ToggleBlock(bool flag) => BaseClass.ToggleBlock(flag);
     protected void CallAttack() => BaseClass.ExecuteAttack();
 
 }

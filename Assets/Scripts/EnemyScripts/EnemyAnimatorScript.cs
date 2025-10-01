@@ -17,6 +17,8 @@ public class EnemyAnimatorScript : MonoBehaviour
     private int death = 0;
     private static string attackSecondTrigger = "TriggerAttackSecond";
     private int attackSecond = 0;
+    private static string blockTrigger = "TriggerBlock";
+    private int block = 0;
 
 
     #endregion
@@ -29,6 +31,7 @@ public class EnemyAnimatorScript : MonoBehaviour
         hurt = Animator.StringToHash(hurtTrigger);
         death = Animator.StringToHash(deathTrigger);
         attackSecond = Animator.StringToHash(attackSecondTrigger);
+        block = Animator.StringToHash(blockTrigger);
     }
 
 
@@ -39,5 +42,7 @@ public class EnemyAnimatorScript : MonoBehaviour
     public void TriggerInitialAttack() => enemyAnimator.SetTrigger(attack);
     public void TriggerSecondAttack() => enemyAnimator.SetTrigger(attackSecond);
     public void TriggerDeath() => enemyAnimator.SetTrigger(death);
+
+    public void TriggerBlock() => enemyAnimator.SetTrigger(block);
 
 }

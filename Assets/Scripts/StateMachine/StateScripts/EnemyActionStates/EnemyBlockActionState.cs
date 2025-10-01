@@ -14,13 +14,13 @@ public class EnemyBlockActionState : EnemyActionBaseState
     internal override void OnEnter()
     {
         base.OnEnter();
-       
+       ToggleBlock(true);
 
     }
     internal override void OnExit()
     {
         base.OnExit();
-
+        ToggleBlock(false);
     }
     internal override void Update()
     {
