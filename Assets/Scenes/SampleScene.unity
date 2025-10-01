@@ -8171,14 +8171,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 323220464}
     m_Modifications:
-    - target: {fileID: 668973177703930162, guid: fde18d427aeb6904f8c24ca768a3359d, type: 3}
-      propertyPath: blockTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 668973177703930162, guid: fde18d427aeb6904f8c24ca768a3359d, type: 3}
-      propertyPath: mainStats.MaxHealth
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3120593867163630568, guid: fde18d427aeb6904f8c24ca768a3359d, type: 3}
       propertyPath: m_Name
       value: SkeletonEnemyParent

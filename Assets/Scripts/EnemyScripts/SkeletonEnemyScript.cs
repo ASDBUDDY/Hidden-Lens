@@ -105,7 +105,7 @@ public class SkeletonEnemyScript : EnemyBaseScript
 
     public override void CheckForAttack()
     {
-        if (attackTimer <= 0f && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Attack)
+        if (attackTimer <= 0f && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Attack && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Hurt)
         {
             if (TargetObj != null)
             {
@@ -131,7 +131,7 @@ public class SkeletonEnemyScript : EnemyBaseScript
 
             if (TargetObj != null)
             {
-                if (blockTimer <=0f && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Block && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Attack)
+                if (blockTimer <=0f && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Block && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Attack && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Hurt)
                 {
                     float range = Vector3.Distance(transform.position, TargetObj.transform.position);
                     if (range >= mainStats.AttackRange[0].x && range <= mainStats.AttackRange[0].y)

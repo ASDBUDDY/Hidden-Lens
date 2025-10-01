@@ -177,7 +177,7 @@ public class EnemyBaseScript : MonoBehaviour
 
     public virtual void CheckForAttack()
     {
-        if (attackTimer <= 0f && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Attack)
+        if (attackTimer <= 0f && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Attack && actionStateMachine.CurrentStateType !=EnemyActionStateEnum.Hurt)
         {
             if (TargetObj != null)
             {
