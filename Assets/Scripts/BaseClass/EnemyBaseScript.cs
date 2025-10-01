@@ -12,7 +12,7 @@ public class EnemyBaseScript : MonoBehaviour
     private SpriteRenderer enemySprite;
     [SerializeField]
     protected EnemyStats mainStats;
-    private HealthComponent enemyHealth;
+    protected HealthComponent enemyHealth;
     [SerializeField]
     private Material enemyAuraMaterial;
     [SerializeField]
@@ -24,9 +24,7 @@ public class EnemyBaseScript : MonoBehaviour
 
 
     #region Movement Variables
-    [SerializeField]
     private float stopTimer = 0f;
-    [SerializeField]
     private int movementCounter = 0;
 
 

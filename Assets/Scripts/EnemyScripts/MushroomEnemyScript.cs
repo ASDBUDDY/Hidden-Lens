@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class GoblinEnemyScript : EnemyBaseScript
+public class MushroomEnemyScript : EnemyBaseScript
 {
-    [Header("Goblin Specific")]
-    private BoxCollider2D enemyCollider;
-    private Vector2 colliderOffset = new Vector2(0f, -0.06917371f);
-    private Vector2 dodgeColliderOffset = new Vector2(-0.2f, -0.06917371f);
+
+    [Header("Mushroom Specific")]
 
     public Transform AttackPoint2;
     public Vector2 AttackSize2;
@@ -16,13 +14,13 @@ public class GoblinEnemyScript : EnemyBaseScript
     public override void Awake()
     {
         base.Awake();
-        enemyCollider = GetComponent<BoxCollider2D>();
+        
     }
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
-        EnemyType = EnemyTypeEnum.Goblin;
+        EnemyType = EnemyTypeEnum.Mushroom;
     }
 
     // Update is called once per frame
@@ -61,35 +59,16 @@ public class GoblinEnemyScript : EnemyBaseScript
             newPlayer.OnDamage(mainStats.DamageData[attackType]);
             attackTimer = mainStats.AttackSpeed;
 
+            if(attackType == 1)
+            {
+                enemyHealth.IncreaseHealth(mainStats.DamageData[attackType]);
+            }
             
         }
-        if (hitCheck == null || attackType > 0)
-        {
-            if (attackType >= mainStats.DamageData.Count - 1)
-            {
-                attackType = 0;
-                attackTimer = mainStats.AttackSpeed;
-            }
-            else
-            {
-                attackType++;
-            }
-        }
+       
 
         Invoke(nameof(ReturnToChase), 1f);
 
-    }
-
-    public void SecondAttackDodge(int start = 0)
-    {
-        if (start == 0)
-        {
-            enemyCollider.offset = dodgeColliderOffset;
-        }
-        else
-        {
-            enemyCollider.offset =colliderOffset;
-        }
     }
 
 
