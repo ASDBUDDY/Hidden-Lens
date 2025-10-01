@@ -333,7 +333,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 0233e3786309f1e4e8b904a762cdc3be, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -408,7 +408,7 @@ MonoBehaviour:
     StopTime: 1
     DetectionRange: {x: 10, y: 8}
     AttackRange:
-    - {x: 0.1, y: 1}
+    - {x: 0.1, y: 2}
   enemyAuraMaterial: {fileID: 2100000, guid: 0233e3786309f1e4e8b904a762cdc3be, type: 2}
   enemyLightMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   MovementList:
@@ -416,8 +416,6 @@ MonoBehaviour:
   - {fileID: 1046926320319809227}
   - {fileID: 3632526095584773796}
   EnemyType: 1
-  stopTimer: 0
-  movementCounter: 0
   DetectionLayerMask:
     serializedVersion: 2
     m_Bits: 64
