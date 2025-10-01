@@ -181,14 +181,15 @@ public class EnemyBaseScript : MonoBehaviour
         {
             if (TargetObj != null)
             {
-                float range = Vector3.Distance(transform.position, TargetObj.transform.position);
+                float range = Mathf.Abs(transform.position.x - TargetObj.transform.position.x);
                 for (int i = 0; i < mainStats.AttackRange.Count; i++)
                 {
                     if (range >= mainStats.AttackRange[i].x && range <= mainStats.AttackRange[i].y)
                     {
                         actionStateMachine.SetState(EnemyActionStateEnum.Attack);
-                        attackType = i; 
-                        attackTimer = mainStats.AttackSpeed;
+                        attackType = i;
+                        
+                       
                         break;
                         
                     }
@@ -250,7 +251,7 @@ public class EnemyBaseScript : MonoBehaviour
     public void CallHurt() => enemyAnimatorScript.TriggerHurt();
     public void CallDeath() => enemyAnimatorScript.TriggerDeath();
 
-    public void ExecuteAttack()
+    public virtual void ExecuteAttack()
     {
         switch (attackType)
         {

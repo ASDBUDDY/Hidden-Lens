@@ -101,7 +101,7 @@ public class HPDialUI : MonoBehaviour
 
         for (int i = 0; i < CogList.Count; i++)
         {
-            if (!CogList[i].gameObject.activeSelf)
+            if (!CogList[i].gameObject.activeInHierarchy)
                 break;
 
             Image currentSprite = CogList[i].GetComponent<Image>();

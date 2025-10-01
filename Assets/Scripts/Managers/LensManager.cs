@@ -107,7 +107,11 @@ public class LensManager : MonoBehaviour
     {
         foreach(var item in AllEnemies) 
         {
-            if(item.IsDead) continue;
+            if(!item.gameObject.activeInHierarchy)
+                continue;
+
+            if (item.IsDead)
+                continue;
 
             item.SwapMaterial(isLensActive);
         }

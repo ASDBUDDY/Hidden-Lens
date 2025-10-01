@@ -109,7 +109,7 @@ public class SkeletonEnemyScript : EnemyBaseScript
         {
             if (TargetObj != null)
             {
-                float range = Vector3.Distance(transform.position, TargetObj.transform.position);
+                float range = Mathf.Abs(transform.position.x - TargetObj.transform.position.x);
                 for (int i = 0; i < mainStats.AttackRange.Count; i++)
                 {
                     if (range >= mainStats.AttackRange[i].x && range <= mainStats.AttackRange[i].y)
