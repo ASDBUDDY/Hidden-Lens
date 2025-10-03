@@ -20,7 +20,8 @@ public class EnemyBaseScript : MonoBehaviour
     
     public List<GameObject> MovementList;
     public EnemyTypeEnum EnemyType;
-
+    public List<GameObject> ImpactFX;
+    public GameObject DeathFX;
 
 
     #region Movement Variables
@@ -237,9 +238,12 @@ public class EnemyBaseScript : MonoBehaviour
         
         enemyHealth.DamageHealth(damage);
 
+        PlayImpact();
+
         if (enemyHealth.IsDead)
         {
             behaviourStateMachine.SetState(EnemyStateEnum.Dead);
+            DeathFX.SetActive(true);
         }
         else
             SetActionState(EnemyActionStateEnum.Hurt);
@@ -262,17 +266,28 @@ public class EnemyBaseScript : MonoBehaviour
 
         enemyAnimatorScript.SetVelocity(0f);
     }
+    public virtual void ToggleBlock(bool flag = true)
+    {
+
+    }
 
     public void SwapMaterial(bool flag = false)
     {
         enemySprite.material = flag ? enemyLightMaterial : enemyAuraMaterial;
     }
 
-    public virtual void ToggleBlock(bool flag = true)
+
+    public void PlayImpact()
     {
+        foreach(var item in ImpactFX)
+        {
+            if (item.activeInHierarchy)
+                continue;
 
+            item.SetActive(true);
+            break;
+        }
     }
-
     #endregion
 
     #region Debug Methods
