@@ -52,21 +52,22 @@ public class HPDialUI : MonoBehaviour
         CheckForActiveCogs();
     }
 
-    public void UpdateSlider(float value, bool isHealth = true)
+    public void UpdateSlider(float value, bool isHealth = true, bool isDamage =true)
     {
         if (isHealth)
         {
             if(HealthRoutine != null)
                 StopCoroutine(HealthRoutine);
 
-            HealthRoutine = StartCoroutine(SliderLerp(value, HPSlider));
+            
+            HealthRoutine = StartCoroutine( isDamage ? SliderLerpNegative(value, HPSlider): SliderLerpPositive(value, HPSlider));
         }
         else
         {
             if(ManaRoutine!=null)
                 StopCoroutine(ManaRoutine);
 
-            ManaRoutine = StartCoroutine(SliderLerp(value, ManaSlider));
+            ManaRoutine = StartCoroutine(isDamage ? SliderLerpNegative(value, ManaSlider) : SliderLerpPositive(value, ManaSlider));
             CheckForActiveCogs();
         }
     }
@@ -120,18 +121,41 @@ public class HPDialUI : MonoBehaviour
         }
     }
 
-    private IEnumerator SliderLerp(float updateValue, Slider currentSlider )
+    private IEnumerator SliderLerpPositive(float updateValue, Slider currentSlider )
     {
         float currentValue = currentSlider.value;
         if (currentValue >= updateValue)
         {
             currentSlider.value = updateValue;
+            
         }
-
+        float slideSpeed = (Mathf.Abs(currentValue - updateValue) > 4f ? 6f : 1f);
         while (currentValue < updateValue)
         {
-            currentValue += (Mathf.Abs(currentValue - updateValue) > 1f ? 3f :1f) * TimeManager.Instance.DeltaTime;
+            currentValue += slideSpeed * TimeManager.Instance.DeltaTime;
             if (currentValue > updateValue)
+                currentValue = updateValue;
+
+            currentSlider.value = currentValue;
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
+
+
+    }
+    private IEnumerator SliderLerpNegative(float updateValue, Slider currentSlider)
+    {
+        float currentValue = currentSlider.value;
+        if (currentValue <= updateValue)
+        {
+            currentSlider.value = updateValue;
+            
+        }
+        float slideSpeed = (Mathf.Abs(currentValue - updateValue) > 4f ? 6f : 1f);
+        while (currentValue > updateValue)
+        {
+            currentValue -= slideSpeed * TimeManager.Instance.DeltaTime;
+            if (currentValue < updateValue)
                 currentValue = updateValue;
 
             currentSlider.value = currentValue;
