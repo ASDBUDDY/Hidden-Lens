@@ -176,6 +176,13 @@ public class EnemyBaseScript : MonoBehaviour
         }
     }
 
+    
+    protected IEnumerator OnDeath()
+    {
+        yield return new CustomWaitForSeconds(2f);
+
+        this.gameObject.SetActive(false);
+    }
     public virtual void CheckForAttack()
     {
         if (attackTimer <= 0f && actionStateMachine.CurrentStateType != EnemyActionStateEnum.Attack && actionStateMachine.CurrentStateType !=EnemyActionStateEnum.Hurt)
@@ -253,7 +260,12 @@ public class EnemyBaseScript : MonoBehaviour
     public void CallInitialAttack() => enemyAnimatorScript.TriggerInitialAttack();
     public void CallSecondAttack() => enemyAnimatorScript.TriggerSecondAttack();
     public void CallHurt() => enemyAnimatorScript.TriggerHurt();
-    public void CallDeath() => enemyAnimatorScript.TriggerDeath();
+    public void CallDeath() 
+    {
+        CancelInvoke(nameof(ReturnToChase));
+        enemyAnimatorScript.TriggerDeath(); 
+        StartCoroutine(OnDeath()); 
+    }
 
     public virtual void ExecuteAttack()
     {
