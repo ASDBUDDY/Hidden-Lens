@@ -24,6 +24,7 @@ public class HPDialUI : MonoBehaviour
     [Header("MainLens")]
     public List<SimpleRotationScript> MainCogList;
     public ColorLerpScript MainLens;
+    public GameObject VFXObj;
 
     private void Awake()
     {
@@ -78,6 +79,7 @@ public class HPDialUI : MonoBehaviour
         }
 
         MainLens.ToggleColorLerp(active);
+        VFXObj.SetActive(active);
     }
     private void SetGauges(int gaugeCount)
     {
