@@ -16,6 +16,7 @@ public class LensManager : MonoBehaviour
     private Coroutine LensRoutine;
     public List<EnemyBaseScript> AllEnemies;
     public bool IsActive { get { return isLensActive; } }
+
     [Header("For DEBUG")]
     public float GaugeSize;
     public int GaugeCount;

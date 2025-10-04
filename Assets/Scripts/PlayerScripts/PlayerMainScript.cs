@@ -8,6 +8,14 @@ using UnityEngine.InputSystem;
 public class PlayerMainScript : MonoBehaviour
 {
     #region Variables
+
+    [Header("DEBUG Abilities")]
+    [SerializeField]
+    private bool dashUnlocked = false;
+    [SerializeField]
+    private bool wallSlideUnlocked = false;
+
+
     [Header("Player Stats")]
     public PlayerStats MainStats;
 
@@ -230,6 +238,8 @@ public class PlayerMainScript : MonoBehaviour
     }
     private void ProcessWallSlide()
     {
+        if (!wallSlideUnlocked)
+            return;
 
         if (!IsGrounded() && IsOnWall() && horizontalMovement!=0 && wallSlidingTimer <= 0f)
         {
@@ -257,6 +267,9 @@ public class PlayerMainScript : MonoBehaviour
     }
     private void ProcessWallJump()
     {
+        if(!wallSlideUnlocked)
+            return;
+
         if (isWallSliding || IsOnWall() && !isWallJumping)
         {
             isWallJumping = false;
@@ -312,6 +325,9 @@ public class PlayerMainScript : MonoBehaviour
 
     public void ExecuteDash(InputAction.CallbackContext context)
     {
+        if (!dashUnlocked)
+            return;
+
         if (context.performed && canDash && !isGrabbing && !isWallSliding)
         {
             if(isAttacking)
@@ -495,7 +511,7 @@ public class PlayerMainScript : MonoBehaviour
         {
             playerRigidbody.velocity = playerRigidbody.velocity * 0.5f;
 
-            if (!IsGrounded())
+            if (!IsGrounded() && dashUnlocked)
             {
                 if(DashRoutine!=null)
                 {
