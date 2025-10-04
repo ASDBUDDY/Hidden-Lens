@@ -589,6 +589,8 @@ public class PlayerMainScript : MonoBehaviour
         playerAnimatorScript.CallDeath();
         ResetAttack();
         ResetCrouch();
+        if(LensManager.Instance.IsActive)
+            LensManager.Instance.ToggleLens();
     }
     #endregion
 
