@@ -10,8 +10,11 @@ public class PlayerMainScript : MonoBehaviour
     #region Variables
     [Header("Player Stats")]
     public PlayerStats MainStats;
-    
+
+    [Header("Player Health")]
+    public GameObject BloodVFX;
     private HealthComponent playerHealth;
+    public GameObject DeathSmoke;
 
     [Header("Layer Checks")]
     //Ground Layer
@@ -88,7 +91,6 @@ public class PlayerMainScript : MonoBehaviour
     private bool isCrouching = false;
 
     //Grabbing variables
-    [SerializeField]
     private bool isGrabbing = false;
     #endregion
 
@@ -559,11 +561,13 @@ public class PlayerMainScript : MonoBehaviour
 
             playerHealth.DamageHealth(damage);
 
+        BloodVFX.SetActive(true);
         Debug.Log($"Player Health : {playerHealth.CurrentHealth}");
 
         if (playerHealth.IsDead)
         {
             CallDeath();
+            Invoke(nameof(DeathVFX), 2f);
         }
         else
             CallHurt();
@@ -579,7 +583,7 @@ public class PlayerMainScript : MonoBehaviour
         ResetAttack();
         ResetCrouch();
     }
-
+    private void DeathVFX() => DeathSmoke.SetActive(true);
     public void CallDeath()
     {
         playerAnimatorScript.CallDeath();

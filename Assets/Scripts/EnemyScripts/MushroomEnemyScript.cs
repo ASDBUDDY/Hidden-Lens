@@ -10,6 +10,7 @@ public class MushroomEnemyScript : EnemyBaseScript
 
     public Transform AttackPoint2;
     public Vector2 AttackSize2;
+    public GameObject HealVFX;
 
     public override void Awake()
     {
@@ -62,6 +63,7 @@ public class MushroomEnemyScript : EnemyBaseScript
             if(attackType == 1)
             {
                 enemyHealth.IncreaseHealth(mainStats.DamageData[attackType]);
+                HealVFX.SetActive(true);
             }
             
         }
