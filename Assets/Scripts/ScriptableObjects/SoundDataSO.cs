@@ -46,6 +46,7 @@ public class PlayerAudioData
         AttackVoiceThree = 15,
         CrouchVoice = 16,
         LandingVoice = 17,
+        DashSFX = 18,
 
     }
 }

@@ -119,6 +119,8 @@ public class PlayerAudioScript : MonoBehaviour
 
     public void PlayCrouch() => PlayOnVoice(SoundData.GetPlayerAudioClip(PlayerAudioData.PlayerAudioClips.CrouchVoice));
 
+    public void PlayDash() => PlayOnSFX(SoundData.GetPlayerAudioClip(PlayerAudioData.PlayerAudioClips.DashSFX));
+
     #endregion
 }
 

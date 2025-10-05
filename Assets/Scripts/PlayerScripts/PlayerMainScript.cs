@@ -340,6 +340,7 @@ public class PlayerMainScript : MonoBehaviour
             {
                 StopCoroutine(DashRoutine);
             }
+            playerAudioScript.PlayDash();
             DashRoutine = StartCoroutine(DashCoroutine());
         }
     }
@@ -544,6 +545,7 @@ public class PlayerMainScript : MonoBehaviour
                 {
                     StopCoroutine(DashRoutine);
                 }
+                playerAudioScript.PlayDash();
                 DashRoutine = StartCoroutine(DashCoroutine());
             }
            
