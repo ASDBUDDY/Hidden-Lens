@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e47b9b5b474fe4ea2c30dada3e71b6, type: 3}
+  m_Name: Sound Data SO
+  m_EditorClassIdentifier: 
+  PlayerAudioDataList:
+  - AudioName: 0
+    Audio: {fileID: 8300000, guid: ff288f1e62ed69a4d99b1bcf3762e8d3, type: 3}
+  - AudioName: 1
+    Audio: {fileID: 8300000, guid: 5f30ac3e5ebc8da4293d6dcc1b81a24f, type: 3}
+  - AudioName: 2
+    Audio: {fileID: 8300000, guid: 16de07a3900b008488ad6a2d3ce8ea21, type: 3}
+  - AudioName: 3
+    Audio: {fileID: 8300000, guid: 5d70453095aaf124285ffaab09444462, type: 3}
+  - AudioName: 4
+    Audio: {fileID: 8300000, guid: 753b9514f9b14884cbab9a947e38e59b, type: 3}
+  - AudioName: 5
+    Audio: {fileID: 8300000, guid: 84596a8d30c311146877a405d6e7ddc7, type: 3}
+  - AudioName: 6
+    Audio: {fileID: 8300000, guid: b9cedde3c694ffe48ad9a6fab6890fbb, type: 3}
+  - AudioName: 7
+    Audio: {fileID: 8300000, guid: 41169060ca6c1f34fad79f07efed7a8a, type: 3}
+  - AudioName: 8
+    Audio: {fileID: 8300000, guid: 4bcafe0d802967d43b71c495736d0852, type: 3}
+  - AudioName: 9
+    Audio: {fileID: 8300000, guid: fe83779b9892a3b42b7f5206966c466d, type: 3}
+  - AudioName: 10
+    Audio: {fileID: 8300000, guid: ea6f58e6a2990e540a41929d5f317f01, type: 3}
+  - AudioName: 11
+    Audio: {fileID: 8300000, guid: da6a890d7c77d6444a8473ee64f88f87, type: 3}
+  - AudioName: 12
+    Audio: {fileID: 8300000, guid: b67bf9ad95a5fe04793d38986f09cd4b, type: 3}
+  - AudioName: 13
+    Audio: {fileID: 8300000, guid: a8b94c67c316e75449bc968271b5b705, type: 3}
+  - AudioName: 14
+    Audio: {fileID: 8300000, guid: 8d13a3d60b6f781438eed2b108bcf97a, type: 3}
+  - AudioName: 15
+    Audio: {fileID: 8300000, guid: ddadfc9fa154f00489cf30e148790867, type: 3}
+  - AudioName: 16
+    Audio: {fileID: 8300000, guid: 0cf5c75ee80047e4aa2d89a372e45847, type: 3}
+  - AudioName: 17
+    Audio: {fileID: 8300000, guid: 76f305a28e6b8ea479d5138eda563aa7, type: 3}

@@ -66,6 +66,7 @@ public class PlayerMainScript : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     private SpriteRenderer playerSpriteRenderer;
     private PlayerAnimatorScript playerAnimatorScript;
+    private PlayerAudioScript playerAudioScript;
 
         #region Movement variables
         //Movement
@@ -81,6 +82,7 @@ public class PlayerMainScript : MonoBehaviour
         private float jumpBufferInterval = 0.1f; 
         private bool isHalfJump = false;
         private bool isWallJumping = false;
+        private bool isInAir = false;
         private bool isJumping = false;
         private float wallJumpTimer = 0f;
 
@@ -117,6 +119,7 @@ public class PlayerMainScript : MonoBehaviour
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         playerAnimatorScript = GetComponent<PlayerAnimatorScript>();
         playerCollider = GetComponent<BoxCollider2D>();  
+        playerAudioScript = GetComponent<PlayerAudioScript>();
     }
     // Start is called before the first frame update
     void Start()
@@ -372,6 +375,7 @@ public class PlayerMainScript : MonoBehaviour
         playerRigidbody.velocity = Vector3.zero;
         playerRigidbody.gravityScale = 0f;
         playerAnimatorScript.SetGrab(isGrabbing);
+        playerAudioScript.PlayJumpSound();
     }
     private void ResetGrab(bool moveUp = false, bool directionLeft =false)
     {
@@ -384,6 +388,7 @@ public class PlayerMainScript : MonoBehaviour
                 transform.position = new Vector2(transform.position.x - (0.15f * transform.localScale.x), transform.position.y + 1.8f);
 
             playerAnimatorScript.SetJump(false);
+            playerAudioScript.PlayCrouch();
         }
         else
         {
@@ -395,10 +400,31 @@ public class PlayerMainScript : MonoBehaviour
     {
         if (IsGrounded())
         {
+
+
+
             lastTimeOnGround = TimeManager.Instance.TimeInSeconds;
-            if(playerRigidbody.velocity.y <= 0.1f)
+            if (playerRigidbody.velocity.y <= 0.1f)
+            {
                 playerAnimatorScript.SetJump(false);
+                if (isInAir)
+                {
+                    playerAudioScript.PlayLanding();
+                    isInAir = false;
+                }
+               
+            }
             isJumping = false;
+        }
+        else
+        {
+            if (playerRigidbody.velocity.y > 0.1f || playerRigidbody.velocity.y < -20f)
+            {
+                isInAir = true;
+            }
+
+            if (playerRigidbody.velocity.y == 0f)
+                isInAir = false;
         }
     }
 
@@ -418,7 +444,7 @@ public class PlayerMainScript : MonoBehaviour
                 playerAnimatorScript.SetCrouch(isCrouching);
                 playerCollider.size = new Vector2(playerCollider.size.x, CrouchYSize);
                 playerCollider.offset = new Vector2(playerCollider.offset.x, CrouchYPos);
-
+                playerAudioScript.PlayCrouch();
                 if (isAttacking)
                     ResetAttack();
             }
@@ -467,7 +493,8 @@ public class PlayerMainScript : MonoBehaviour
 
                 isWallJumping = true;
                 float direction = transform.rotation.eulerAngles.y == 180f ? 1 : -1;
-               
+
+                playerAudioScript.PlayJumpSound();
                 playerRigidbody.velocity = new Vector2(MainStats.PlayerWallJumpSpeed * direction, MainStats.PlayerJumpSpeed);
                 transform.rotation = Quaternion.Euler(transform.position.x, direction == 1 ? 0 : 180, transform.position.z);
                 wallJumpTimer = 0f;
@@ -491,7 +518,7 @@ public class PlayerMainScript : MonoBehaviour
    
     private void PerformJump(bool isHalf = false)
     {
-
+        playerAudioScript.PlayJumpSound();
         playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, MainStats.PlayerJumpSpeed * (isHalf ? 0.5f : 1f));
         timeLastPressedJump = Mathf.NegativeInfinity;
         timeSinceLastJump = TimeManager.Instance.TimeInSeconds;
