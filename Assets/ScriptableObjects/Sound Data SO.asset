@@ -62,3 +62,13 @@ MonoBehaviour:
       Audio: {fileID: 8300000, guid: a5c9ba68ebafa754394582637d547b07, type: 3}
     - AudioName: 3
       Audio: {fileID: 8300000, guid: 47dda5bdef6aff349ad4952954c6585e, type: 3}
+  - enemyType: 1
+    enemyAudioDatas:
+    - AudioName: 0
+      Audio: {fileID: 8300000, guid: c6a3ef8a041291646a8e969e63dc23a7, type: 3}
+    - AudioName: 1
+      Audio: {fileID: 8300000, guid: 107215be874dae84a98c5df4005a26aa, type: 3}
+    - AudioName: 2
+      Audio: {fileID: 8300000, guid: fa4185414a3378347a8e5d3aa5303911, type: 3}
+    - AudioName: 3
+      Audio: {fileID: 8300000, guid: 09b5784508823004499d3f82c70807b8, type: 3}
