@@ -51,3 +51,14 @@ MonoBehaviour:
     Audio: {fileID: 8300000, guid: 76f305a28e6b8ea479d5138eda563aa7, type: 3}
   - AudioName: 18
     Audio: {fileID: 8300000, guid: 6048fc9b24ed19041a1e0ce17cf767ed, type: 3}
+  EnemyAudioDataList:
+  - enemyType: 0
+    enemyAudioDatas:
+    - AudioName: 0
+      Audio: {fileID: 8300000, guid: 3fbf9c5b46c180046a183cb50dea5204, type: 3}
+    - AudioName: 1
+      Audio: {fileID: 8300000, guid: 47dda5bdef6aff349ad4952954c6585e, type: 3}
+    - AudioName: 2
+      Audio: {fileID: 8300000, guid: a5c9ba68ebafa754394582637d547b07, type: 3}
+    - AudioName: 3
+      Audio: {fileID: 8300000, guid: 47dda5bdef6aff349ad4952954c6585e, type: 3}

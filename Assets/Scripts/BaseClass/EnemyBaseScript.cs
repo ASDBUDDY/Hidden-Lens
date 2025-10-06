@@ -10,6 +10,7 @@ public class EnemyBaseScript : MonoBehaviour
     protected EnemyActionStateMachine actionStateMachine;
     protected EnemyAnimatorScript enemyAnimatorScript;
     protected SpriteRenderer enemySprite;
+    protected EnemyAudioScript enemyAudioScript;
     [SerializeField]
     protected EnemyStats mainStats;
     protected HealthComponent enemyHealth;
@@ -61,6 +62,7 @@ public class EnemyBaseScript : MonoBehaviour
         actionStateMachine = GetComponent<EnemyActionStateMachine>();
         enemyAnimatorScript = GetComponent<EnemyAnimatorScript>();
         enemySprite = GetComponent<SpriteRenderer>();
+        enemyAudioScript = GetComponent<EnemyAudioScript>();
     }
 
 
@@ -93,6 +95,9 @@ public class EnemyBaseScript : MonoBehaviour
             {
                 stopTimer = 0f;
                 movementCounter++;
+
+                if(enemyAudioScript != null)
+                    enemyAudioScript.PlayIdle();
 
             }
             else
