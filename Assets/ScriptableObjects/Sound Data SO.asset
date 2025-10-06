@@ -72,3 +72,15 @@ MonoBehaviour:
       Audio: {fileID: 8300000, guid: fa4185414a3378347a8e5d3aa5303911, type: 3}
     - AudioName: 3
       Audio: {fileID: 8300000, guid: 09b5784508823004499d3f82c70807b8, type: 3}
+  - enemyType: 2
+    enemyAudioDatas:
+    - AudioName: 0
+      Audio: {fileID: 8300000, guid: 58db82450c785c34eb7809ab76642537, type: 3}
+    - AudioName: 1
+      Audio: {fileID: 8300000, guid: 547b1c94a8bb89b4f8a633610560359f, type: 3}
+    - AudioName: 2
+      Audio: {fileID: 8300000, guid: ceffb60f2c2adca4ea0be19beb287f77, type: 3}
+    - AudioName: 3
+      Audio: {fileID: 8300000, guid: d221f9323346a9f4b9a8cd6fc2496628, type: 3}
+    - AudioName: 4
+      Audio: {fileID: 8300000, guid: 7d88becd2b15c1c4aa858f2fe1da9b60, type: 3}
