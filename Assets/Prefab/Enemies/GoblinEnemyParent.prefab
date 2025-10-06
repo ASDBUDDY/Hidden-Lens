@@ -574,7 +574,7 @@ MonoBehaviour:
   onEventRaised:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8709676035397064985}
         m_TargetAssemblyTypeName: EnemyBaseScript, Assembly-CSharp
         m_MethodName: OnPauseCall
         m_Mode: 0
@@ -639,7 +639,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 6
-  MaxDistance: 12
+  MaxDistance: 8
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

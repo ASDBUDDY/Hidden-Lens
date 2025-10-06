@@ -84,3 +84,23 @@ MonoBehaviour:
       Audio: {fileID: 8300000, guid: d221f9323346a9f4b9a8cd6fc2496628, type: 3}
     - AudioName: 4
       Audio: {fileID: 8300000, guid: 7d88becd2b15c1c4aa858f2fe1da9b60, type: 3}
+  - enemyType: 3
+    enemyAudioDatas:
+    - AudioName: 0
+      Audio: {fileID: 8300000, guid: 1df702f02204a8243b4fc65e00ea6858, type: 3}
+    - AudioName: 1
+      Audio: {fileID: 8300000, guid: 40394b71f4742b74ca44dbb10f798b41, type: 3}
+    - AudioName: 2
+      Audio: {fileID: 8300000, guid: ee7dcb86ae803bc4e8c5e4169999c5f1, type: 3}
+    - AudioName: 3
+      Audio: {fileID: 8300000, guid: a75ea0390604cd14daa3792cad0548f8, type: 3}
+  - enemyType: 4
+    enemyAudioDatas:
+    - AudioName: 0
+      Audio: {fileID: 8300000, guid: 9051a5f22fc7b9d4fa8bd1dde3267516, type: 3}
+    - AudioName: 1
+      Audio: {fileID: 8300000, guid: 6c8a72d1189220f4789cd1747d76731a, type: 3}
+    - AudioName: 2
+      Audio: {fileID: 8300000, guid: 9051a5f22fc7b9d4fa8bd1dde3267516, type: 3}
+    - AudioName: 3
+      Audio: {fileID: 8300000, guid: 6c8a72d1189220f4789cd1747d76731a, type: 3}
