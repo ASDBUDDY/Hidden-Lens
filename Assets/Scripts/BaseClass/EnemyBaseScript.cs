@@ -28,6 +28,7 @@ public class EnemyBaseScript : MonoBehaviour
     #region Movement Variables
     protected float stopTimer = 0f;
     protected int movementCounter = 0;
+    protected float idleSoundTimer = 0f;
 
 
     #endregion
@@ -96,8 +97,11 @@ public class EnemyBaseScript : MonoBehaviour
                 stopTimer = 0f;
                 movementCounter++;
 
-                if(enemyAudioScript != null)
+                if(enemyAudioScript != null && idleSoundTimer > 7f)
+                {
                     enemyAudioScript.PlayIdle();
+                    idleSoundTimer = 0f;
+                }
 
             }
             else
@@ -121,6 +125,8 @@ public class EnemyBaseScript : MonoBehaviour
 
                 transform.position = MovementPos;
         }
+
+        idleSoundTimer += TimeManager.Instance.DeltaTime;
         
     }
     protected void SetRotationAndVelocity(float diffPosition)
