@@ -216,7 +216,7 @@ public class PlayerMainScript : MonoBehaviour
 
     private void GravityFunctionality()
     {
-        if (playerRigidbody != null && !isGrabbing && !isDashing)
+        if (playerRigidbody != null && !isGrabbing && !isDashing && !isAttacking)
         {
             if (playerRigidbody.velocity.y < -MainStats.PlayerJumpHangTime && !isWallSliding)
             {
