@@ -184,12 +184,12 @@ public class PlayerMainScript : MonoBehaviour
 
                 if (horizontalMovement < 0f)
                 {
-                    transform.rotation = Quaternion.Euler(transform.position.x, 180, transform.position.z);
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
 
                 }
                 else if (horizontalMovement > 0f)
                 {
-                    transform.rotation = Quaternion.Euler(transform.position.x, 0, transform.position.z);
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
                 }
 
                 
