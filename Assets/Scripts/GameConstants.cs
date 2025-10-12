@@ -16,5 +16,6 @@ public class GameConstants : MonoBehaviour
         public static string BGM_VOLUME = "BGMVolume";
         public static string INGAME_VOLUME = "IngameVolume";
         public static string UI_VOLUME = "UIVolume";
+        public static string RESPAWN_POINT = "RespawnPoint";
     }
 }
