@@ -133,11 +133,11 @@ public class EnemyBaseScript : MonoBehaviour
     {
         if (diffPosition < 0)
         {
-            transform.rotation = Quaternion.Euler(transform.position.x, 180f, transform.position.z);
+            transform.rotation = Quaternion.Euler(transform.rotation.x, 180f, 0f);
         }
         else if (diffPosition > 0)
         {
-            transform.rotation = Quaternion.Euler(transform.position.x, 0f, transform.position.z);
+            transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, 0f);
         }
 
         float velocity =  Mathf.Abs(diffPosition/TimeManager.Instance.DeltaTime);
