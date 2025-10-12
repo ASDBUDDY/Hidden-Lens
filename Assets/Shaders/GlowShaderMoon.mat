@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GlowShaderBasic
+  m_Name: GlowShaderMoon
   m_Shader: {fileID: -6465566751694194690, guid: cadddb4bbb9de214bad32f4adc0ec211, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -55,5 +55,5 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _Color: {r: 8, g: 8, b: 8, a: 1}
+    - _Color: {r: 1024, g: 1024, b: 1024, a: 1}
   m_BuildTextureStacks: []

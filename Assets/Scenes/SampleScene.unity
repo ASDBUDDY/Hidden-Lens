@@ -1484,7 +1484,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 18fe39f58b9f29542ab42658d747f0c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -37869,6 +37869,22 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 209451185
       objectReference: {fileID: 0}
+    - target: {fileID: 8213350776531617240, guid: fde18d427aeb6904f8c24ca768a3359d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213350776531617240, guid: fde18d427aeb6904f8c24ca768a3359d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139003528840933535, guid: fde18d427aeb6904f8c24ca768a3359d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139003528840933535, guid: fde18d427aeb6904f8c24ca768a3359d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37915,6 +37931,14 @@ PrefabInstance:
       propertyPath: m_ApplyToSortingLayers.Array.data[6]
       value: 209451185
       objectReference: {fileID: 0}
+    - target: {fileID: 1638977850321765314, guid: 51d6193c3a5fd8348be6642259f08865, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638977850321765314, guid: 51d6193c3a5fd8348be6642259f08865, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     - target: {fileID: 2430158722113901171, guid: 51d6193c3a5fd8348be6642259f08865, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.05
@@ -37959,6 +37983,14 @@ PrefabInstance:
       propertyPath: SoundData
       value: 
       objectReference: {fileID: 11400000, guid: bd9dcd682c0e4604990ea726db55312e, type: 2}
+    - target: {fileID: 5043071518416204992, guid: 51d6193c3a5fd8348be6642259f08865, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5043071518416204992, guid: 51d6193c3a5fd8348be6642259f08865, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     - target: {fileID: 7119905152475726509, guid: 51d6193c3a5fd8348be6642259f08865, type: 3}
       propertyPath: dashUnlocked
       value: 1
@@ -38093,6 +38125,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 323220464}
     m_Modifications:
+    - target: {fileID: 633280662947680604, guid: 750e7a180c2953c46aded2c4c7db9165, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 633280662947680604, guid: 750e7a180c2953c46aded2c4c7db9165, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     - target: {fileID: 1395427932981083101, guid: 750e7a180c2953c46aded2c4c7db9165, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.4
@@ -38133,6 +38173,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2065166459658822995, guid: 750e7a180c2953c46aded2c4c7db9165, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065166459658822995, guid: 750e7a180c2953c46aded2c4c7db9165, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     - target: {fileID: 3177556165577101200, guid: 750e7a180c2953c46aded2c4c7db9165, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
       value: 6
@@ -38166,6 +38214,14 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5226251455407580608, guid: 750e7a180c2953c46aded2c4c7db9165, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
+    - target: {fileID: 7649877900153313064, guid: 750e7a180c2953c46aded2c4c7db9165, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7649877900153313064, guid: 750e7a180c2953c46aded2c4c7db9165, type: 3}
       propertyPath: m_SortingLayerID
       value: 209451185
       objectReference: {fileID: 0}
@@ -38425,6 +38481,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1994120815852176505, guid: d42e67a20ade905439d1c94ab1f0a1d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994120815852176505, guid: d42e67a20ade905439d1c94ab1f0a1d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     - target: {fileID: 4448268325394325637, guid: d42e67a20ade905439d1c94ab1f0a1d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 77.3
@@ -38464,6 +38528,22 @@ PrefabInstance:
     - target: {fileID: 4448268325394325637, guid: d42e67a20ade905439d1c94ab1f0a1d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5858095356887598734, guid: d42e67a20ade905439d1c94ab1f0a1d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5858095356887598734, guid: d42e67a20ade905439d1c94ab1f0a1d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
+    - target: {fileID: 8271528187049636103, guid: d42e67a20ade905439d1c94ab1f0a1d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8271528187049636103, guid: d42e67a20ade905439d1c94ab1f0a1d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
       objectReference: {fileID: 0}
     - target: {fileID: 8965619686621743604, guid: d42e67a20ade905439d1c94ab1f0a1d9, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
@@ -38534,6 +38614,14 @@ PrefabInstance:
       propertyPath: m_ApplyToSortingLayers.Array.data[6]
       value: 209451185
       objectReference: {fileID: 0}
+    - target: {fileID: 4483262417422028833, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483262417422028833, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     - target: {fileID: 4785844437675378699, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
       propertyPath: m_Name
       value: SlimeEnemyParent
@@ -38590,6 +38678,14 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 209451185
       objectReference: {fileID: 0}
+    - target: {fileID: 9189444688586443792, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189444688586443792, guid: 62bec8fe8a416114db23c86ab4048f39, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38636,6 +38732,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 323220464}
     m_Modifications:
+    - target: {fileID: 1033565418743429537, guid: 0d10879c6691f0f408cb04088c20611c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033565418743429537, guid: 0d10879c6691f0f408cb04088c20611c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     - target: {fileID: 2619668748382702285, guid: 0d10879c6691f0f408cb04088c20611c, type: 3}
       propertyPath: m_Name
       value: GoblinEnemyParent
@@ -38719,6 +38823,14 @@ PrefabInstance:
     - target: {fileID: 5383528340902055545, guid: 0d10879c6691f0f408cb04088c20611c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518797795737838973, guid: 0d10879c6691f0f408cb04088c20611c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518797795737838973, guid: 0d10879c6691f0f408cb04088c20611c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
