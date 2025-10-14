@@ -124,10 +124,11 @@ public class PlayerMainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerHealth = new HealthComponent(30f);
+        playerHealth = new HealthComponent(5f);
         HPDialUI.Instance.SetupHealth(playerHealth.MaxHealth);
     }
 
+    
     // Update is called once per frame
     void Update()
     {
@@ -648,6 +649,11 @@ public class PlayerMainScript : MonoBehaviour
 
     #region Other Functions
 
+    public void ResetPlayer()
+    {
+        Start();
+        DeathSmoke.SetActive(false);
+    }
     public void ToggleLens(InputAction.CallbackContext context)
     {
         if(TimeManager.Instance.TimePaused) 

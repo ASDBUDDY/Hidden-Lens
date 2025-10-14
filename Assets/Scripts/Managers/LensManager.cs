@@ -47,6 +47,16 @@ public class LensManager : MonoBehaviour
         }
     }
 
+    public void ResetLens()
+    {
+        Start();
+        foreach (var item in AllEnemies)
+        {
+            item.gameObject.SetActive(false);
+            item.gameObject.SetActive(true);
+            item.Start();
+        }
+    }
     public void UpdateGauge(int gaugeCount)
     {
         LensData = new LensStats(GaugeSize * gaugeCount, GaugeSize);

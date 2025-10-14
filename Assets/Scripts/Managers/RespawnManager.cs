@@ -46,7 +46,7 @@ public class RespawnManager : MonoBehaviour
     {
         SpawnID = PlayerPrefs.GetInt(GameConstants.PlayerPrefConstants.RESPAWN_POINT,0);
 
-        return RespawnList[SpawnID].gameObject.transform.position;
+        return RespawnList[SpawnID].gameObject.transform.position + new Vector3(0f,2f,0f);
     }
 
     public void UpdateSpawn(RespawnPoint respawnPoint)

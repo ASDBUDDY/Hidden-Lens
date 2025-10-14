@@ -41,7 +41,7 @@ public class DeathUI : MonoBehaviour
         {
             MainBG.SetActive(false);
             Vignette.SetActive(false);
-            
+            GameManager.Instance.ResetGame();
         }
     }
 
