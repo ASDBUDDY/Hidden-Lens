@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance;
 
     public BoolEventChannelSO PauseEvent;
+
+ 
     public bool TimePaused {  get; private set; }
 
     /// <summary>
@@ -85,7 +88,10 @@ public class TimeManager : MonoBehaviour
         DeltaTime = flag ? 0 : TimeInSeconds - timeLastFrame;
         FixedDeltaTime = flag ? 0 : 1f / 50;
         PauseEvent.RaiseEvent(flag);
+       
+
     }
+
 
     private void CalculateOnScreenTime()
     {

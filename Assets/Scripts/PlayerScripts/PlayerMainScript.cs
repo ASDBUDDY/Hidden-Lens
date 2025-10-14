@@ -67,6 +67,7 @@ public class PlayerMainScript : MonoBehaviour
     private SpriteRenderer playerSpriteRenderer;
     private PlayerAnimatorScript playerAnimatorScript;
     private PlayerAudioScript playerAudioScript;
+    private PlayerInput playerInput;
 
         #region Movement variables
         //Movement
@@ -120,13 +121,17 @@ public class PlayerMainScript : MonoBehaviour
         playerAnimatorScript = GetComponent<PlayerAnimatorScript>();
         playerCollider = GetComponent<BoxCollider2D>();  
         playerAudioScript = GetComponent<PlayerAudioScript>();
+        playerInput = GetComponent<PlayerInput>();
     }
     // Start is called before the first frame update
     void Start()
     {
         playerHealth = new HealthComponent(5f);
         HPDialUI.Instance.SetupHealth(playerHealth.MaxHealth);
+        playerInput.actions.FindActionMap("UI").Enable();
+        
     }
+
 
     
     // Update is called once per frame
@@ -683,13 +688,19 @@ public class PlayerMainScript : MonoBehaviour
             pauseVelocity = playerRigidbody.velocity;
             playerRigidbody.velocity = Vector2.zero;
             playerRigidbody.gravityScale = 0;
+            playerInput.actions.FindActionMap("Player").Disable();
         }
         else
         {
             playerRigidbody.velocity =  pauseVelocity;
             playerRigidbody.gravityScale = BaseGravity;
 
+            Invoke(nameof(ResetInput), 0.1f);
         }
+    }
+    private void ResetInput()
+    {
+        playerInput.actions.FindActionMap("Player").Enable();
     }
     #endregion
     private void OnDrawGizmosSelected()
