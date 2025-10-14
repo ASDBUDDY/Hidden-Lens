@@ -56,6 +56,9 @@ TagManager:
   - name: Walkable
     uniqueID: 820666003
     locked: 0
+  - name: Interactables
+    uniqueID: 3386859329
+    locked: 0
   - name: Playables
     uniqueID: 209451185
     locked: 0

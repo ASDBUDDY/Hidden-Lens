@@ -328,7 +328,7 @@ public class PlayerMainScript : MonoBehaviour
 
     public void ExecuteDash(InputAction.CallbackContext context)
     {
-        if (!dashUnlocked)
+        if (!dashUnlocked || TimeManager.Instance.TimePaused)
             return;
 
         if (context.performed && canDash && !isGrabbing && !isWallSliding)
@@ -636,6 +636,13 @@ public class PlayerMainScript : MonoBehaviour
         ResetCrouch();
         if(LensManager.Instance.IsActive)
             LensManager.Instance.ToggleLens();
+
+        Invoke(nameof(ToggleDeathUI), 4f);
+    }
+
+    private void ToggleDeathUI()
+    {
+        DeathUI.Instance.ToggleUI(true);
     }
     #endregion
 
@@ -643,6 +650,9 @@ public class PlayerMainScript : MonoBehaviour
 
     public void ToggleLens(InputAction.CallbackContext context)
     {
+        if(TimeManager.Instance.TimePaused) 
+        { return; }
+
         if (context.performed)
         {
             LensManager.Instance.ToggleLens();
