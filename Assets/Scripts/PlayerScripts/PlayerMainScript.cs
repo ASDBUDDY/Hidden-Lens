@@ -74,7 +74,8 @@ public class PlayerMainScript : MonoBehaviour
         #region Movement variables
         //Movement
         private float horizontalMovement = 0f;
-        private float movementSmoothTime = 0.3f;
+
+        private float movementSmoothTime = 0.15f;
         private Vector2 velocityRef = Vector2.zero;
 
         //Jump variables
