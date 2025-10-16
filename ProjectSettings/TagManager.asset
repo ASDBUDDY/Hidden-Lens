@@ -14,7 +14,7 @@ TagManager:
   - Player
   - Walls
   - Enemy
-  - 
+  - OutBounds
   - 
   - 
   - 
@@ -53,6 +53,9 @@ TagManager:
   - name: Sky4
     uniqueID: 2234168491
     locked: 0
+  - name: BackgroundLayer
+    uniqueID: 874530641
+    locked: 0
   - name: Walkable
     uniqueID: 820666003
     locked: 0
@@ -61,4 +64,7 @@ TagManager:
     locked: 0
   - name: Playables
     uniqueID: 209451185
+    locked: 0
+  - name: ForeGroundLayer
+    uniqueID: 1666821895
     locked: 0

@@ -14,6 +14,8 @@ public class PlayerMainScript : MonoBehaviour
     private bool dashUnlocked = false;
     [SerializeField]
     private bool wallSlideUnlocked = false;
+    [SerializeField]
+    private float MaxHealth = 30f;
 
 
     [Header("Player Stats")]
@@ -126,7 +128,7 @@ public class PlayerMainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerHealth = new HealthComponent(5f);
+        playerHealth = new HealthComponent(MaxHealth);
         HPDialUI.Instance.SetupHealth(playerHealth.MaxHealth);
         playerInput.actions.FindActionMap("UI").Enable();
         
