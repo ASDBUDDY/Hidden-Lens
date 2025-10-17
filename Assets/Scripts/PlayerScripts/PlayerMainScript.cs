@@ -489,13 +489,12 @@ public class PlayerMainScript : MonoBehaviour
     }
     public void JumpFunction(InputAction.CallbackContext context)
     {
-        if (playerHealth.IsDead || TimeManager.Instance.TimePaused)
+        if (playerHealth.IsDead || TimeManager.Instance.TimePaused || isGrabbing)
             return;
         timeLastPressedJump = TimeManager.Instance.TimeInSeconds;
          isHalfJump = context.performed ? false : context.canceled ? true : false;
 
-        if (isGrabbing)
-            return;
+      
 
         if (TimeManager.Instance.TimeInSeconds - timeSinceLastJump > 0.5f && !isDashing)
         {
@@ -515,7 +514,7 @@ public class PlayerMainScript : MonoBehaviour
 
                 playerAudioScript.PlayJumpSound();
                 playerRigidbody.velocity = new Vector2(MainStats.PlayerWallJumpSpeed * direction, MainStats.PlayerJumpSpeed);
-                transform.rotation = Quaternion.Euler(transform.position.x, direction == 1 ? 0 : 180, transform.position.z);
+                transform.rotation = Quaternion.Euler(transform.rotation.x, direction == 1 ? 0 : 180, transform.rotation.z);
                 wallJumpTimer = 0f;
 
 
