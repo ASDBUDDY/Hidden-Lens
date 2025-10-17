@@ -5,6 +5,6 @@ using UnityEngine;
 public class ControlsInformationScript : InformationBoxScript
 {
    
-    protected override void SetText() => DialogText.text = DisplayStrings[(int)GameManager.Instance.GetCurrentScheme()];
+    protected override void SetText() => DialogText.text = DisplayStrings[(int)GameManager.Instance.CurrentPlayerControlScheme];
     
 }
