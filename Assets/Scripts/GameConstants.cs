@@ -18,4 +18,10 @@ public class GameConstants : MonoBehaviour
         public static string UI_VOLUME = "UIVolume";
         public static string RESPAWN_POINT = "RespawnPoint";
     }
+
+    public static class ControlSchemes
+    {
+        public const string KEYBOARD = "Keyboard";
+        public const string GAMEPAD = "Gamepad";
+    }
 }

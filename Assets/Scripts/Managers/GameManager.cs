@@ -2,12 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public PlayerMainScript PlayerObj;
+    private PlayerInput CurrentPlayerInput;
+    public enum PlayerControlScheme
+    {
+        Keyboard=0,
+        Gamepad=1
+    }
 
+    public PlayerControlScheme GetCurrentScheme()
+    {
+        return CurrentPlayerInput.currentControlScheme switch {
+            GameConstants.ControlSchemes.KEYBOARD => PlayerControlScheme.Keyboard,
+            GameConstants.ControlSchemes.GAMEPAD => PlayerControlScheme.Gamepad,
+            _ => PlayerControlScheme.Keyboard,
+
+        };
+       
+    }
     private void Awake()
     {
 
@@ -15,6 +32,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+        CurrentPlayerInput = PlayerObj.gameObject.GetComponent<PlayerInput>();
      
     }
 
