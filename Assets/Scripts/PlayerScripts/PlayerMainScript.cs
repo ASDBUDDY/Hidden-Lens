@@ -4,6 +4,8 @@ using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerMainScript : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class PlayerMainScript : MonoBehaviour
     private float MaxHealth = 30f;
 
 
+
     [Header("Player Stats")]
     public PlayerStats MainStats;
 
@@ -25,6 +28,11 @@ public class PlayerMainScript : MonoBehaviour
     public GameObject BloodVFX;
     private HealthComponent playerHealth;
     public GameObject DeathSmoke;
+    public Volume GlobalVolume;
+    private ChromaticAberration chromaticAberration;
+    public AnimationCurve HurtEffects;
+    private float IFrameTimer = 1f;
+    private float IFrameTime = 1f;
 
     [Header("Layer Checks")]
     //Ground Layer
@@ -125,6 +133,7 @@ public class PlayerMainScript : MonoBehaviour
         playerCollider = GetComponent<BoxCollider2D>();  
         playerAudioScript = GetComponent<PlayerAudioScript>();
         playerInput = GetComponent<PlayerInput>();
+        GlobalVolume.profile.TryGet(out chromaticAberration);
     }
     // Start is called before the first frame update
     void Start()
@@ -144,7 +153,7 @@ public class PlayerMainScript : MonoBehaviour
             return; 
 
         HandlePlayerMovement();
-        AttackUpdation();
+        TimerUpdation();
     }
     #endregion
 
@@ -568,11 +577,16 @@ public class PlayerMainScript : MonoBehaviour
         }
     }
 
-    private void AttackUpdation()
+    private void TimerUpdation()
     {
         if (attackTimer > 0f)
         {
            attackTimer -= TimeManager.Instance.DeltaTime;    
+        }
+
+        if(IFrameTimer < IFrameTime)
+        {
+            IFrameTimer += TimeManager.Instance.DeltaTime;
         }
     }
     public void ResetAttack()
@@ -610,7 +624,7 @@ public class PlayerMainScript : MonoBehaviour
      
     public void OnDamage(float damage)
     {
-        if (playerHealth.IsDead || TimeManager.Instance.TimePaused)
+        if (playerHealth.IsDead || TimeManager.Instance.TimePaused|| IFrameTimer <IFrameTime)
             return;
 
             playerHealth.DamageHealth(damage);
@@ -633,9 +647,27 @@ public class PlayerMainScript : MonoBehaviour
 
     public void CallHurt()
     {
+        IFrameTimer = 0f;
+        StartCoroutine(HurtRoutine(TimeManager.Instance.TimeInSeconds));
         playerAnimatorScript.CallHurt();
         ResetAttack();
         ResetCrouch();
+    }
+    private IEnumerator HurtRoutine(float time)
+    {
+        
+        if(!chromaticAberration)
+            yield return null;
+
+        float intensity = 0f;
+        while (IFrameTimer < IFrameTime)
+        {
+            intensity = HurtEffects.Evaluate(TimeManager.Instance.TimeInSeconds - time);
+            chromaticAberration.intensity.value = intensity;
+            yield return new WaitForEndOfFrame();
+        }
+
+        chromaticAberration.intensity.value = 0f;
     }
     private void DeathVFX() => DeathSmoke.SetActive(true);
     public void CallDeath()
