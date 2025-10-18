@@ -53,7 +53,7 @@ public class ChestInteractableScript : InteractableBaseScript
             case ChestRewards.HiddenLens:
                 GameManager.Instance.ActivateLens(); break;
             case ChestRewards.NewGauge:
-                LensManager.Instance.UpdateGauge(LensManager.Instance.GaugeCount + RewardAmount); break;
+                LensManager.Instance.SetupLensMana(LensManager.Instance.GaugeCount + RewardAmount); break;
             case ChestRewards.ManaPotion:
                 LensManager.Instance.RefillGauge((float) RewardAmount); break;
             case ChestRewards.HealthPotion: 
