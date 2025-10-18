@@ -278,7 +278,7 @@ Transform:
   m_GameObject: {fileID: 4476173475518852296}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 0000000091635340bf471521abb42a85935eea30b1f87b0c51472034415fdfc9
   m_LightCookieSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -843,14 +843,13 @@ GameObject:
   - component: {fileID: 2430158722113901171}
   - component: {fileID: 7544655733415811467}
   - component: {fileID: 7082898169638776171}
-  - component: {fileID: 1002775372504089492}
   - component: {fileID: 6159461831261428759}
   - component: {fileID: 7119905152475726509}
   - component: {fileID: 7267937128049099879}
   - component: {fileID: 1911390357357996528}
   - component: {fileID: 3665209314146810003}
   - component: {fileID: 3315595510453644119}
-  - component: {fileID: 2604718238771157852}
+  - component: {fileID: 2291513879188481976}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -921,8 +920,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 209451185
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: -3318188226485093758, guid: ae72133dacba6ec4eb33ecde48f50e56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -962,51 +961,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &1002775372504089492
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8812472641296595820}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.008795664, y: -0.02223387}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4, y: 0.5}
-    oldSize: {x: 0.69, y: 0.44}
-    newSize: {x: 0.69, y: 0.44}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.19980478, y: 0.3785404}
-  m_EdgeRadius: 0
 --- !u!114 &6159461831261428759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,7 +984,19 @@ MonoBehaviour:
       m_Calls: []
   m_ControlsChangedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnSchemeChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -1140,22 +1106,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7119905152475726509}
         m_TargetAssemblyTypeName: PlayerMainScript, Assembly-CSharp
-        m_MethodName: PauseFunction
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6872d196-5c3d-422b-a10b-edd53f4c61b8
-    m_ActionName: Player/Pause[/Keyboard/p,/XInputControllerWindows/select,/XInputControllerWindows1/select]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7119905152475726509}
-        m_TargetAssemblyTypeName: PlayerMainScript, Assembly-CSharp
         m_MethodName: ExecuteDash
         m_Mode: 0
         m_Arguments:
@@ -1184,6 +1134,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e6805e31-c84e-475e-80a6-0ae222bc6072
     m_ActionName: Player/Special1[/Keyboard/q,/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7119905152475726509}
+        m_TargetAssemblyTypeName: PlayerMainScript, Assembly-CSharp
+        m_MethodName: PauseFunction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 97ff0f5b-5b31-4d37-8c8d-52233063dcb1
+    m_ActionName: UI/Pause[/Keyboard/p,/XInputControllerWindows/start,/XInputControllerWindows1/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7119905152475726509}
+        m_TargetAssemblyTypeName: PlayerMainScript, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 41aae8ac-8987-45ad-992d-132f702ceae3
+    m_ActionName: Player/Interact[/XInputControllerWindows/rightStick/down,/XInputControllerWindows1/rightStick/down,/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1203,6 +1185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashUnlocked: 0
   wallSlideUnlocked: 0
+  hiddenLensUnlocked: 0
+  MaxHealth: 80
   MainStats:
     PlayerSpeed: 8
     PlayerJumpSpeed: 15
@@ -1218,6 +1202,40 @@ MonoBehaviour:
     PlayerDashCooldown: 1
   BloodVFX: {fileID: 7118778618966789380}
   DeathSmoke: {fileID: 9066867234949811981}
+  GlobalVolume: {fileID: 0}
+  HurtEffects:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.32120746
+      value: 1.0015117
+      inSlope: -0.037539218
+      outSlope: -0.037539218
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0023468
+      value: 0.0025062084
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   GroundCheckPos: {fileID: 938350290148327674}
   LedgeCheckPos: {fileID: 3544075888739898133}
   ledgeCheckSize: {x: 0.15, y: 0.08}
@@ -1236,6 +1254,9 @@ MonoBehaviour:
   AttackLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  InteractLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
   BaseGravity: 2
   GravityMultiplier: 2
   HangGravityMultiplier: 0.5
@@ -1294,39 +1315,7 @@ MonoBehaviour:
   - {fileID: 7792620000442294024}
   - {fileID: 6755504924973352085}
   - {fileID: 6692455396527981504}
-  AudioDataList:
-  - AudioName: 0
-    Audio: {fileID: 8300000, guid: ff288f1e62ed69a4d99b1bcf3762e8d3, type: 3}
-  - AudioName: 1
-    Audio: {fileID: 8300000, guid: 5f30ac3e5ebc8da4293d6dcc1b81a24f, type: 3}
-  - AudioName: 2
-    Audio: {fileID: 8300000, guid: 16de07a3900b008488ad6a2d3ce8ea21, type: 3}
-  - AudioName: 3
-    Audio: {fileID: 8300000, guid: 5d70453095aaf124285ffaab09444462, type: 3}
-  - AudioName: 4
-    Audio: {fileID: 8300000, guid: 753b9514f9b14884cbab9a947e38e59b, type: 3}
-  - AudioName: 5
-    Audio: {fileID: 8300000, guid: 84596a8d30c311146877a405d6e7ddc7, type: 3}
-  - AudioName: 6
-    Audio: {fileID: 8300000, guid: b9cedde3c694ffe48ad9a6fab6890fbb, type: 3}
-  - AudioName: 7
-    Audio: {fileID: 8300000, guid: 41169060ca6c1f34fad79f07efed7a8a, type: 3}
-  - AudioName: 8
-    Audio: {fileID: 8300000, guid: 4bcafe0d802967d43b71c495736d0852, type: 3}
-  - AudioName: 9
-    Audio: {fileID: 8300000, guid: fe83779b9892a3b42b7f5206966c466d, type: 3}
-  - AudioName: 10
-    Audio: {fileID: 8300000, guid: ea6f58e6a2990e540a41929d5f317f01, type: 3}
-  - AudioName: 11
-    Audio: {fileID: 8300000, guid: da6a890d7c77d6444a8473ee64f88f87, type: 3}
-  - AudioName: 12
-    Audio: {fileID: 8300000, guid: b67bf9ad95a5fe04793d38986f09cd4b, type: 3}
-  - AudioName: 13
-    Audio: {fileID: 8300000, guid: a8b94c67c316e75449bc968271b5b705, type: 3}
-  - AudioName: 14
-    Audio: {fileID: 8300000, guid: 8d13a3d60b6f781438eed2b108bcf97a, type: 3}
-  - AudioName: 15
-    Audio: {fileID: 8300000, guid: ddadfc9fa154f00489cf30e148790867, type: 3}
+  SoundData: {fileID: 11400000, guid: bd9dcd682c0e4604990ea726db55312e, type: 2}
 --- !u!114 &3315595510453644119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1355,14 +1344,41 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!81 &2604718238771157852
-AudioListener:
+--- !u!70 &2291513879188481976
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8812472641296595820}
   m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.009749698, y: -0.021060932}
+  m_Size: {x: 0.20285168, y: 0.3988096}
+  m_Direction: 0
 --- !u!1001 &74598349238487238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1371,6 +1387,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2430158722113901171}
     m_Modifications:
+    - target: {fileID: 1709071418711952132, guid: d05fa29b279adb948a41018170f19b22, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1709071418711952132, guid: d05fa29b279adb948a41018170f19b22, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
+      objectReference: {fileID: 0}
     - target: {fileID: 4577424556363207869, guid: d05fa29b279adb948a41018170f19b22, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.046
@@ -1445,6 +1469,14 @@ PrefabInstance:
     - target: {fileID: 170564597683381365, guid: 46d54ee199d5a2f498d7a9aecc8b6405, type: 3}
       propertyPath: m_Name
       value: BloodVFX1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696418286992874929, guid: 46d54ee199d5a2f498d7a9aecc8b6405, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696418286992874929, guid: 46d54ee199d5a2f498d7a9aecc8b6405, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 209451185
       objectReference: {fileID: 0}
     - target: {fileID: 4164746077085851023, guid: 46d54ee199d5a2f498d7a9aecc8b6405, type: 3}
       propertyPath: m_LocalPosition.x

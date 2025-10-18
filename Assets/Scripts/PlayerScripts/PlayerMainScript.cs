@@ -73,7 +73,7 @@ public class PlayerMainScript : MonoBehaviour
     public DashTrail DashSystem;
 
     private Vector2 pauseVelocity = Vector2.zero;
-    private BoxCollider2D playerCollider;
+    private CapsuleCollider2D playerCollider;
     private Rigidbody2D playerRigidbody;
     private SpriteRenderer playerSpriteRenderer;
     private PlayerAnimatorScript playerAnimatorScript;
@@ -131,7 +131,7 @@ public class PlayerMainScript : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         playerAnimatorScript = GetComponent<PlayerAnimatorScript>();
-        playerCollider = GetComponent<BoxCollider2D>();  
+        playerCollider = GetComponent<CapsuleCollider2D>();  
         playerAudioScript = GetComponent<PlayerAudioScript>();
         playerInput = GetComponent<PlayerInput>();
         GlobalVolume.profile.TryGet(out chromaticAberration);
