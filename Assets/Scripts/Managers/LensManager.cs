@@ -15,6 +15,7 @@ public class LensManager : MonoBehaviour
     private bool isLensActive = false;
     private Coroutine LensRoutine;
     public List<EnemyBaseScript> AllEnemies;
+    public List<HiddenLensObjects> HiddenLayerObjs;
     public bool IsActive { get { return isLensActive; } }
 
     [Header("For DEBUG")]
@@ -34,6 +35,7 @@ public class LensManager : MonoBehaviour
     {
         UpdateGauge(GaugeCount);
         HPDialUI.Instance.SetupManaSlider(GaugeCount);
+        
     }
 
     private void Update()
@@ -125,6 +127,11 @@ public class LensManager : MonoBehaviour
                 continue;
 
             item.SwapMaterial(isLensActive);
+        }
+
+        foreach(var item in HiddenLayerObjs)
+        {
+            item.ToggleReveal(isLensActive);
         }
 
     }
