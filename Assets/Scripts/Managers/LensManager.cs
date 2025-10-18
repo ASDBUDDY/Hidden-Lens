@@ -22,6 +22,7 @@ public class LensManager : MonoBehaviour
     public float GaugeSize;
     public int GaugeCount;
 
+    public bool IsLensEmpty => LensData.CurrentLensMana == 0f;
     private void Awake()
     {
 

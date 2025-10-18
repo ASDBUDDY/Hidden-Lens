@@ -60,7 +60,7 @@ public class RespawnPoint : MonoBehaviour
         {
             if (collision.gameObject.layer == GameConstants.Layers.PLAYER_LAYER)
             {
-                if(GameManager.Instance.IsLensUnlocked)
+                if(GameManager.Instance.IsLensUnlocked && LensManager.Instance.IsLensEmpty)
                 {
                     LensManager.Instance.RefillGauge();
                 }
