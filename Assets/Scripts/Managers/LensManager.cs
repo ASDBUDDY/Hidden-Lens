@@ -33,8 +33,10 @@ public class LensManager : MonoBehaviour
     }
     private void Start()
     {
-        UpdateGauge(GaugeCount);
-        HPDialUI.Instance.SetupManaSlider(GaugeCount);
+       
+            GaugeCount = PlayerPrefs.GetInt(GameConstants.PlayerPrefConstants.GAUGE_UNLOCK, 0);
+
+       SetupLensMana(GaugeCount);
         
     }
 
@@ -49,6 +51,14 @@ public class LensManager : MonoBehaviour
         }
     }
 
+    public void SetupLensMana(int gaugeCount =0)
+    {
+        GaugeCount = gaugeCount;
+        UpdateGauge(GaugeCount);
+        HPDialUI.Instance.SetupManaSlider(GaugeCount);
+
+       PlayerPrefs.SetInt(GameConstants.PlayerPrefConstants.GAUGE_UNLOCK, GaugeCount);
+    }
     public void ResetLens()
     {
         Start();
@@ -58,6 +68,17 @@ public class LensManager : MonoBehaviour
             item.gameObject.SetActive(true);
             item.Start();
         }
+    }
+
+    public void RefillGauge(int gaugeCount = 1)
+    {
+        LensData.RefillMana(gaugeCount * GaugeSize);
+        HPDialUI.Instance.UpdateSlider(LensData.CurrentLensMana, false);
+    }
+    public void RefillGauge(float refillAmount)
+    {
+        LensData.RefillMana(refillAmount);
+        HPDialUI.Instance.UpdateSlider(LensData.CurrentLensMana, false);
     }
     public void UpdateGauge(int gaugeCount)
     {

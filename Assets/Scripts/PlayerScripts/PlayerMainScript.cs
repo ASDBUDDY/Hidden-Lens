@@ -12,10 +12,10 @@ public class PlayerMainScript : MonoBehaviour
     #region Variables
 
     [Header("DEBUG Abilities")]
-    [SerializeField]
-    private bool dashUnlocked = false;
-    [SerializeField]
-    private bool wallSlideUnlocked = false;
+    public bool dashUnlocked = false;
+    public bool wallSlideUnlocked = false;
+   
+    public bool hiddenLensUnlocked = false;
     [SerializeField]
     private float MaxHealth = 30f;
 
@@ -54,7 +54,8 @@ public class PlayerMainScript : MonoBehaviour
     [SerializeField]
     private Vector2 attackCheckSize = new Vector2(0.58f, 0.12f);
     public LayerMask AttackLayerMask;
-
+    //Interact Layers
+    public LayerMask InteractLayerMask;
     
 
     [Header("Gravity Params")]
@@ -620,7 +621,13 @@ public class PlayerMainScript : MonoBehaviour
 
     #region Health Functions
 
-     
+     public void OnHeal(float amount)
+     {
+        if (playerHealth.IsDead)
+            return;
+
+        playerHealth.IncreaseHealth(amount);
+     }
     public void OnDamage(float damage)
     {
         if (playerHealth.IsDead || TimeManager.Instance.TimePaused|| IFrameTimer <IFrameTime)
@@ -688,6 +695,23 @@ public class PlayerMainScript : MonoBehaviour
 
     #region Other Functions
 
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        Collider2D[] InteractColliders = (Physics2D.OverlapBoxAll(transform.position, playerCollider.size, 0, InteractLayerMask));
+
+            if (InteractColliders.Length > 0) 
+            {
+
+                for (int i = 0; i < InteractColliders.Length; i++)
+                {
+                    InteractableBaseScript interact = InteractColliders[i].GetComponent<InteractableBaseScript>();
+                    if (interact != null)
+                    {
+                        interact.OnActivate();
+                    }
+                }
+            }
+    }
     public void ResetPlayer()
     {
         Start();
@@ -695,7 +719,7 @@ public class PlayerMainScript : MonoBehaviour
     }
     public void ToggleLens(InputAction.CallbackContext context)
     {
-        if(TimeManager.Instance.TimePaused) 
+        if(TimeManager.Instance.TimePaused || !hiddenLensUnlocked) 
         { return; }
 
         if (context.performed)

@@ -56,5 +56,15 @@ public class RespawnPoint : MonoBehaviour
                 RespawnManager.Instance.UpdateSpawn(this);
             }
         }
+        else
+        {
+            if (collision.gameObject.layer == GameConstants.Layers.PLAYER_LAYER)
+            {
+                if(GameManager.Instance.IsLensUnlocked)
+                {
+                    LensManager.Instance.RefillGauge();
+                }
+            }
+        }
     }
 }

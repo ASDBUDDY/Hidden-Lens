@@ -17,11 +17,19 @@ public class GameConstants : MonoBehaviour
         public static string INGAME_VOLUME = "IngameVolume";
         public static string UI_VOLUME = "UIVolume";
         public static string RESPAWN_POINT = "RespawnPoint";
+        public static string ABILITY_UNLOCK = "AbilityUnlocked";
+        public static string GAUGE_UNLOCK = "GaugeUnlocked";
     }
 
     public static class ControlSchemes
     {
         public const string KEYBOARD = "Keyboard";
         public const string GAMEPAD = "Gamepad";
+    }
+
+    public static class Interactables
+    {
+        public static string CHEST_ID = "ChestUnlock";
+        
     }
 }
