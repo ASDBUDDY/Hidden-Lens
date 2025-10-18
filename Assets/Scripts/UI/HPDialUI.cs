@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,12 @@ public class HPDialUI : MonoBehaviour
     public ColorLerpScript MainLens;
     public GameObject VFXObj;
 
+    [Header("CurrencyBar")]
+    public TextMeshProUGUI CurrencyAmount;
+    private int currentCurrency;
+    public float incrementSpeed;
+    private Coroutine CurrencyRoutine;
+
     private void Awake()
     {
 
@@ -51,7 +58,13 @@ public class HPDialUI : MonoBehaviour
         SetGauges(gaugeCount);
         CheckForActiveCogs();
     }
+    public void UpdateCurrency(int currency)
+    {
+        if(CurrencyRoutine != null) 
+            StopCoroutine(CurrencyRoutine);
 
+        CurrencyRoutine = StartCoroutine(CurrencyUpdation(currency));
+    }
     public void UpdateSlider(float value, bool isHealth = true, bool isDamage =true)
     {
         if (isHealth)
@@ -164,5 +177,28 @@ public class HPDialUI : MonoBehaviour
         yield return null;
 
 
+    }
+
+    private IEnumerator CurrencyUpdation(int finalAmount)
+    {
+        float time = 0;
+        int startingAmount = currentCurrency;
+        CurrencyAmount.text = startingAmount.ToString();
+
+       
+
+        while (currentCurrency != finalAmount)
+        {
+            yield return null;
+
+            time += TimeManager.Instance.DeltaTime;
+            float factor = time / incrementSpeed;
+            currentCurrency = (int)Mathf.Lerp(startingAmount, finalAmount, factor);
+
+            CurrencyAmount.text = currentCurrency.ToString();
+
+        }
+
+        yield break;
     }
 }

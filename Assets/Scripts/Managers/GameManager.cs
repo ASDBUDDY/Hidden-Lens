@@ -10,7 +10,11 @@ public class GameManager : MonoBehaviour
     public PlayerMainScript PlayerObj;
     private PlayerInput CurrentPlayerInput;
     public PlayerControlScheme CurrentPlayerControlScheme = PlayerControlScheme.Keyboard;
+    public WalletClass PlayerWallet;
+    public EnemyDataSO EnemyDataCenter;
+    public DeathBagScript DeathBagPrefab;
 
+    private GameObject PreviousDeathBag;
     public bool IsLensUnlocked => PlayerObj.hiddenLensUnlocked;
 
     public void ActivateLens(bool firstTime = true) 
@@ -57,6 +61,7 @@ public class GameManager : MonoBehaviour
     {
         CheckForAbilities();
         SpawnPlayerOnStart();
+        SetupWallet();
     }
 
     private void CheckForAbilities()
@@ -68,6 +73,38 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey(GameConstants.PlayerPrefConstants.ABILITY_UNLOCK + 3))
             ActivateWallSlide(false);
 
+    }
+
+    private void SetupWallet()
+    {
+        int currency = PlayerPrefs.GetInt(GameConstants.PlayerPrefConstants.WALLET_CURRENCY, 0);
+
+        PlayerWallet = new WalletClass(currency);
+
+        HPDialUI.Instance.UpdateCurrency(currency);
+
+    }
+
+    public void IncrementWallet(int currency)
+    {
+        PlayerWallet.IncrementCurrency(currency);
+
+        PlayerPrefs.SetInt(GameConstants.PlayerPrefConstants.WALLET_CURRENCY, PlayerWallet.GetCurrency);
+
+        HPDialUI.Instance.UpdateCurrency(PlayerWallet.GetCurrency);
+    }
+
+    public bool TransactWallet(int currency)
+    {
+        bool flag = PlayerWallet.Transact(currency);
+
+        if (flag)
+        {
+            PlayerPrefs.SetInt(GameConstants.PlayerPrefConstants.WALLET_CURRENCY, PlayerWallet.GetCurrency);
+            HPDialUI.Instance.UpdateCurrency(PlayerWallet.GetCurrency);
+        }
+
+        return flag;
     }
     public void OnSchemeChange()
     {
@@ -90,6 +127,17 @@ public class GameManager : MonoBehaviour
     }
     public void ResetGame()
     {
+        if(PreviousDeathBag)
+            Destroy(PreviousDeathBag);
+
+        DeathBagScript newBag = Instantiate(DeathBagPrefab);
+        newBag.gameObject.transform.position = PlayerObj.transform.position;
+        newBag.SetCurrency(PlayerWallet.GetCurrency);
+
+        PreviousDeathBag = newBag.gameObject;
+
+        TransactWallet(PlayerWallet.GetCurrency);
+
         PlayerObj.gameObject.SetActive(false);
         PlayerObj.transform.position = RespawnManager.Instance.GetRespawnPos();
         PlayerObj.gameObject.SetActive(true);
@@ -99,4 +147,27 @@ public class GameManager : MonoBehaviour
     
 
    
+}
+
+[System.Serializable]
+public class WalletClass
+{
+    private int CurrentCurrency;
+
+    public int GetCurrency => CurrentCurrency;
+
+    public WalletClass(int currency) => CurrentCurrency = currency;
+    public bool TransactionCheck(int currency) => currency <= CurrentCurrency;
+
+    public bool Transact(int currency)
+    {
+        if (TransactionCheck(currency))
+        {
+            CurrentCurrency -= currency;
+            return true;
+        }
+
+        return false;
+    }
+    public void IncrementCurrency(int currency) => CurrentCurrency += currency;
 }

@@ -19,6 +19,7 @@ public class GameConstants : MonoBehaviour
         public static string RESPAWN_POINT = "RespawnPoint";
         public static string ABILITY_UNLOCK = "AbilityUnlocked";
         public static string GAUGE_UNLOCK = "GaugeUnlocked";
+        public static string WALLET_CURRENCY = "WalletCurrency";
     }
 
     public static class ControlSchemes

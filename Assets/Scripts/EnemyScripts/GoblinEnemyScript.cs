@@ -21,8 +21,8 @@ public class GoblinEnemyScript : EnemyBaseScript
     // Start is called before the first frame update
     public override void Start()
     {
-        base.Start();
         EnemyType = EnemyTypeEnum.Goblin;
+        base.Start();
     }
 
     // Update is called once per frame

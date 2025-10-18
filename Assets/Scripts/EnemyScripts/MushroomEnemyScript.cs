@@ -20,8 +20,8 @@ public class MushroomEnemyScript : EnemyBaseScript
     // Start is called before the first frame update
     public override void Start()
     {
-        base.Start();
         EnemyType = EnemyTypeEnum.Mushroom;
+        base.Start();
     }
 
     // Update is called once per frame

@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94095eb7406949e44aa7730a4ba1110e, type: 3}
+  m_Name: Enemy Data SO
+  m_EditorClassIdentifier: 
+  DataList:
+  - EnemyType: 0
+    MaxHealth: 5
+    MovementSpeed: 1
+    AttackSpeed: 1
+    DamageData:
+    - 1
+    StopTime: 2
+    DetectionRange: {x: 7, y: 8}
+    AttackRange:
+    - {x: 0.1, y: 1}
+    CurrencyDrop: 2
+  - EnemyType: 1
+    MaxHealth: 5
+    MovementSpeed: 3
+    AttackSpeed: 1
+    DamageData:
+    - 3
+    - 5
+    StopTime: 1
+    DetectionRange: {x: 10, y: 8}
+    AttackRange:
+    - {x: 0.1, y: 2}
+    CurrencyDrop: 4
+  - EnemyType: 2
+    MaxHealth: 6
+    MovementSpeed: 2
+    AttackSpeed: 1
+    DamageData:
+    - 5
+    - 2
+    StopTime: 3
+    DetectionRange: {x: 10, y: 8}
+    AttackRange:
+    - {x: 1.5, y: 2}
+    - {x: 0.5, y: 1.4}
+    CurrencyDrop: 6
+  - EnemyType: 3
+    MaxHealth: 5
+    MovementSpeed: 3
+    AttackSpeed: 2
+    DamageData:
+    - 5
+    - 5
+    StopTime: 5
+    DetectionRange: {x: 15, y: 8}
+    AttackRange:
+    - {x: 0.1, y: 4}
+    CurrencyDrop: 12
+  - EnemyType: 4
+    MaxHealth: 3
+    MovementSpeed: 5
+    AttackSpeed: 5
+    DamageData:
+    - 8
+    - 5
+    StopTime: 2
+    DetectionRange: {x: 15, y: 8}
+    AttackRange:
+    - {x: 0.1, y: 2}
+    - {x: 5, y: 15}
+    CurrencyDrop: 10

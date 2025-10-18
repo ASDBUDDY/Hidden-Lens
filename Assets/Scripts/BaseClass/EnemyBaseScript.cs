@@ -70,6 +70,7 @@ public class EnemyBaseScript : MonoBehaviour
     // Start is called before the first frame update
    public virtual void Start()
     {
+        mainStats = GameManager.Instance.EnemyDataCenter.GetEnemyStats(EnemyType);
         enemyHealth = new HealthComponent(mainStats.MaxHealth);
     }
 
@@ -190,6 +191,8 @@ public class EnemyBaseScript : MonoBehaviour
     
     protected IEnumerator OnDeath()
     {
+        GameManager.Instance.IncrementWallet(mainStats.CurrencyDrop);
+
         yield return new CustomWaitForSeconds(2f);
 
         this.gameObject.SetActive(false);
@@ -343,6 +346,7 @@ public enum EnemyTypeEnum
 [System.Serializable]
 public class EnemyStats
 {
+    public EnemyTypeEnum EnemyType;
     public float MaxHealth;
     public float MovementSpeed;
     public float AttackSpeed;
@@ -350,4 +354,5 @@ public class EnemyStats
     public float StopTime;
     public Vector2 DetectionRange;
     public List<Vector2> AttackRange;
+    public int CurrencyDrop;
 }
