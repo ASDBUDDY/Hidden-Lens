@@ -12,14 +12,14 @@ public class HiddenLensObjects : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         HiddenObj.SetActive(false);
         RevealFlag = false;
         collidingFlag = false;
     }
 
-    public void ToggleReveal(bool value)
+    public virtual void ToggleReveal(bool value)
     {
         RevealFlag =value;
         if (collidingFlag)
