@@ -56,6 +56,8 @@ public class PlayerMainScript : MonoBehaviour
     public LayerMask AttackLayerMask;
     //Interact Layers
     public LayerMask InteractLayerMask;
+    //Elevator Layer
+    public LayerMask ElevatorLayerMask;
     
 
     [Header("Gravity Params")]
@@ -162,10 +164,11 @@ public class PlayerMainScript : MonoBehaviour
 
     public bool IsGrounded()
     {
-        if(Physics2D.OverlapBox(GroundCheckPos.position, groundCheckSize, 0, GroundLayerMask))
+        if(Physics2D.OverlapBox(GroundCheckPos.position, groundCheckSize, 0, GroundLayerMask) || Physics2D.OverlapBox(GroundCheckPos.position, groundCheckSize, 0, ElevatorLayerMask))
         {
             return true;
         }
+
         return false;
     }
     public bool IsOnWall()
@@ -627,7 +630,9 @@ public class PlayerMainScript : MonoBehaviour
             return;
 
         playerHealth.IncreaseHealth(amount);
-     }
+
+        HPDialUI.Instance.UpdateSlider(playerHealth.CurrentHealth, true);
+    }
     public void OnDamage(float damage)
     {
         if (playerHealth.IsDead || TimeManager.Instance.TimePaused|| IFrameTimer <IFrameTime)

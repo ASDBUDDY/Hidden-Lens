@@ -29,7 +29,14 @@ public class ChestInteractableScript : InteractableBaseScript
 
         RewardItem.SetActive(false);
     }
-
+    private void OnEnable()
+    {
+        if (IsActivated)
+        {
+            animator.SetBool("IsOpened", IsActivated);
+            RewardItem.SetActive(false);
+        }
+    }
     public override void OnActivate()
     {
         if (IsActivated)
