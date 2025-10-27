@@ -42,6 +42,7 @@ public class PlayerMainScript : MonoBehaviour
     public Vector2 ledgeCheckSize = new Vector2(0.58f, 0.12f);
     public Transform SecondLedgeCheckPos;
     public Vector2 secondLedgeCheckSize = new Vector2(0.58f, 0.12f);
+    public Transform ThirdLedgeCheckPos;
     public LayerMask GroundLayerMask;
     //Wall Layers
     public Transform WallCheckPos;
@@ -232,10 +233,12 @@ public class PlayerMainScript : MonoBehaviour
                 PerformJump(isHalfJump);
             }
             GravityFunctionality();
+          
            
         }
     }
 
+    
     private void GravityFunctionality()
     {
         if (playerRigidbody != null && !isGrabbing && !isDashing && !isAttacking)
@@ -334,9 +337,11 @@ public class PlayerMainScript : MonoBehaviour
             if (isWallSliding)
                 return;
 
+          
+
             if (Physics2D.OverlapBox(LedgeCheckPos.position, ledgeCheckSize, 0, GroundLayerMask))
             {
-                if (Physics2D.OverlapBox(SecondLedgeCheckPos.position, secondLedgeCheckSize, 0, GroundLayerMask))
+                if (Physics2D.OverlapBox(SecondLedgeCheckPos.position, secondLedgeCheckSize, 0, GroundLayerMask) || Physics2D.OverlapBox(ThirdLedgeCheckPos.position, secondLedgeCheckSize, 0, GroundLayerMask))
                 {
                     return;
                 }
@@ -418,6 +423,10 @@ public class PlayerMainScript : MonoBehaviour
             playerAnimatorScript.SetJump(true);
         }
             playerRigidbody.gravityScale = BaseGravity;
+    }
+    private void PushDownOnStuck()
+    {
+        transform.position = new Vector2(transform.position.x, transform.position.y - 1.8f);
     }
     private void GroundCheck()
     {
@@ -774,6 +783,8 @@ public class PlayerMainScript : MonoBehaviour
         Gizmos.DrawWireCube(AttackCheckPos.position, attackCheckSize);
         Gizmos.DrawWireCube(LedgeCheckPos.position, ledgeCheckSize);
         Gizmos.DrawWireCube(SecondLedgeCheckPos.position, secondLedgeCheckSize);
+        Gizmos.DrawWireCube(ThirdLedgeCheckPos.position, secondLedgeCheckSize);
+       
         //Gizmos.DrawWireCube(new Vector2(transform.position.x + (0.15f * transform.localScale.x), transform.position.y + 2f), ledgeCheckSize);
     }
 }

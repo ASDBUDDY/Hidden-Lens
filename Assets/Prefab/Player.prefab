@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2430158722113901171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &255367331078422114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 646910281021203918}
+  m_Layer: 6
+  m_Name: ThirdLedgeGrabCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &646910281021203918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255367331078422114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.009, y: 0.135, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2430158722113901171}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &553680634180475317
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,6 +905,7 @@ Transform:
   - {fileID: 1722184986815334088}
   - {fileID: 3544075888739898133}
   - {fileID: 3856751441656206430}
+  - {fileID: 646910281021203918}
   - {fileID: 8480285454565010044}
   - {fileID: 2027643289986935462}
   - {fileID: 1766860849203238351}
@@ -1186,7 +1218,7 @@ MonoBehaviour:
   dashUnlocked: 0
   wallSlideUnlocked: 0
   hiddenLensUnlocked: 0
-  MaxHealth: 80
+  MaxHealth: 30
   MainStats:
     PlayerSpeed: 8
     PlayerJumpSpeed: 15
@@ -1241,6 +1273,7 @@ MonoBehaviour:
   ledgeCheckSize: {x: 0.15, y: 0.08}
   SecondLedgeCheckPos: {fileID: 3856751441656206430}
   secondLedgeCheckSize: {x: 0.3, y: 0.14}
+  ThirdLedgeCheckPos: {fileID: 646910281021203918}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1257,6 +1290,9 @@ MonoBehaviour:
   InteractLayerMask:
     serializedVersion: 2
     m_Bits: 1024
+  ElevatorLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
   BaseGravity: 2
   GravityMultiplier: 2
   HangGravityMultiplier: 0.5
